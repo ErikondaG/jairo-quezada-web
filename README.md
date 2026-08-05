@@ -24,7 +24,7 @@
 
 ---
 
-##Objetivo:##
+## Objetivo
 >Carta de presentación 
 
 ---
