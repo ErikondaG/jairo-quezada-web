@@ -44,8 +44,11 @@
 
 <div align="center">
 
-| [![Erik Silva S.](https://github.com/ErikondaG.png?size=80)](https://github.com/ErikondaG) |
+| [ErikondaG](https://github.com/ErikondaG) |
+|---|
+| [![Erikonda](https://github.com/ErikondaG.png?size=80)](https://github.com/ErikondaG) |
 | Desarrollador |
+
 
 
 </div>
