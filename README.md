@@ -1,6 +1,6 @@
 <!-- Banner -->
 <div align="center">
-  <img src="assets/images/" alt="Jairo-Quezada-Logo" width="70%"/>
+  <img src="public/Logo-blanco.png" alt="Jairo-Quezada-Logo" width="70%"/>
   
   <h1>Jairo Quezada Web</h1>
   
