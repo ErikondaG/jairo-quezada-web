@@ -11,12 +11,9 @@
 
 ## Tabla de Contenidos
 - [Jairo Quezada](#Jairo-Quezada)
-- [Funcionalidades](#funcionalidades)
-- [Stack Tecnológico](#stack-tecnolgico)
-- [Estructura del Proyecto](#estructura-del-proyecto)
-- [Instalación](#instalacin)
-- [Capturas de Pantalla](#capturas-de-pantalla)
-- [Autores](#autores)
+- [Objetivo](#Objetivo)
+- [Tecnológia](#stack-tecnologia)
+- [Autor](#autor)
 
 ---
 
@@ -27,11 +24,12 @@
 
 ---
 
-**Objetivo:** Carta de presentación 
+##Objetivo:##
+>Carta de presentación 
 
 ---
 
-## Stack Tecnológico
+## Tecnológia
 
 | Categoría | Tecnología |
 |-----------|-----------|
