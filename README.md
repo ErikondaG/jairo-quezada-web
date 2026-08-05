@@ -12,7 +12,7 @@
 ## Tabla de Contenidos
 - [Jairo Quezada](#Jairo-Quezada)
 - [Objetivo](#Objetivo)
-- [Tecnológia](#stack-tecnologia)
+- [Tecnológia](#tecnologia)
 - [Autor](#autor)
 
 ---
