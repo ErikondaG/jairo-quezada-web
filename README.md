@@ -5,12 +5,6 @@
   <h1>Jairo Quezada Web</h1>
   
   <p>Sitio web desarrollado para Jairo Quezada, cantante, autor y guitarrista chileno</p>
-
-  ![React Native](https://img.shields.io/badge/React_Native-20232A?style=for-the-badge&logo=react&logoColor=61DAFB)
-  ![Expo](https://img.shields.io/badge/Expo-000020?style=for-the-badge&logo=expo&logoColor=white)
-  ![TypeScript](https://img.shields.io/badge/TypeScript-007ACC?style=for-the-badge&logo=typescript&logoColor=white)
-  ![Firebase](https://img.shields.io/badge/Firebase-FFCA28?style=for-the-badge&logo=firebase&logoColor=black)
-  
 </div>
 
 ---
