@@ -12,8 +12,8 @@
 ## Tabla de Contenidos
 - [Jairo Quezada](#Jairo-Quezada)
 - [Objetivo](#Objetivo)
-- [Tecnológia](#tecnologia)
-- [Autor](#autor)
+- [Tecnológia](#Tecnologia)
+- [Autor](#Autor)
 
 ---
 
