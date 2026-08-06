@@ -4,6 +4,7 @@ import { useGSAP } from "@gsap/react";
 import gsap from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
+import Container from "./Container";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -39,7 +40,7 @@ export default function Hero() {
         });
 
         tl.to(pinRef.current, { height: "100px" }, 0);
-        tl.to(logoRef.current, { x: 0, scale: 0.3 }, 0);
+        tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
         tl.to(panelRef.current, { opacity: 0.9 }, 0);
         tl.to(hfotoRef.current, { opacity: 0}, 0);
@@ -63,23 +64,25 @@ export default function Hero() {
 
                     <div ref={panelRef} className="absolute inset-0 bg-white opacity-0"></div>
 
-                    <div className="max-w-7xl mx-auto w-full flex items-center justify-between px-8 relative z-10">
-                        <div ref={logoRef} className="relative z-10">
-                            <Image
-                                src="/Logo-negro.png"
-                                alt="Logo Jairo Quezada color negro"
-                                width={500}
-                                height={150}
-                                priority
-                            />
-                        </div>
+                    <Container>
+                        <div className="flex items-center justify-between relative z-10">
+                            <div ref={logoRef} className="relative z-10">
+                                <Image
+                                    src="/Logo-negro.png"
+                                    alt="Logo Jairo Quezada color negro"
+                                    width={500}
+                                    height={292}
+                                    priority
+                                />
+                            </div>
 
-                        <nav ref={navRef} className="flex gap-15 opacity-0">
-                            <button className={navButtonClass}>Biografía</button>
-                            <button className={navButtonClass}>Música</button>
-                            <button className={navButtonClass}>Contacto</button>
-                        </nav>
-                    </div>
+                            <nav ref={navRef} className="flex gap-15 opacity-0">
+                                <button className={navButtonClass}>Biografía</button>
+                                <button className={navButtonClass}>Música</button>
+                                <button className={navButtonClass}>Contacto</button>
+                            </nav>
+                        </div>
+                    </Container>
                 </div>
             </div>
         </>
