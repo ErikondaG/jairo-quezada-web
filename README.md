@@ -1,36 +1,60 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+<!-- Banner -->
+<div align="center">
+  <img src="public/Logo-blanco.png" alt="Jairo-Quezada-Logo" width="70%"/>
+  
+  <h1>Jairo Quezada Web</h1>
+  
+  <p>Sitio web desarrollado para Jairo Quezada, cantante, autor y guitarrista chileno</p>
+</div>
 
-## Getting Started
+---
 
-First, run the development server:
+## Tabla de Contenidos
+- [Jairo Quezada](#Jairo-Quezada)
+- [Objetivo](#Objetivo)
+- [Tecnológia](#Tecnologia)
+- [Autor](#Autor)
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
-```
+---
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## Jairo Quezada
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+> Cantante, compositor, autor y guitarrista. Ha vivido en San Bernardo toda la vida. Comenzó a cantar de forma profesional a los 15 años.
+> Ha realizado presentaciones en innumerables escenarios del país y el extranjero. Ha ganado diversos concursos, dentro de los últimos el Festival de la Voz de San Bernardo 2017, Festival Persiguiendo un Sueño 2018 y Festival de la canción “Un Canto al Mar” de Concón 2019, en este con una canción propia. Ha Participado en Programas de televisión como: Yo Soy 5° Temporada CHV, The Voice Chile 2° temporada CHV, Caja de Pandora RED, Somos un Plato TV+, Conectados TVN y Mi Nombre Es 2 entre otros. En 2023 participa en el concurso KWC Chile en su primera versión, ganando el certamen a nivel nacional y teniendo como premio la representación de Chile en el mundial KWC en Panamá. Hoy, al 2026, trabaja en la producción de sus nuevos lanzamientos de canciones propias. 
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+---
 
-## Learn More
+## Objetivo
+>Carta de presentación 
 
-To learn more about Next.js, take a look at the following resources:
+---
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+## Tecnológia
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+| Categoría | Tecnología |
+|-----------|-----------|
+| Framework | Next.js(https://nextjs.org/) / Tailwind(https://tailwindcss.com/) |
+| Lenguaje | TypeScript |
+| Hosting | Netlify(https://www.netlify.com/) |
+| Librerías | GSAP(https://gsap.com/) / Lenis(https://lenis.studiofreight.com/) |
 
-## Deploy on Vercel
+---
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+## Autor
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+<div align="center">
+
+| [ErikondaG](https://github.com/ErikondaG) |
+|---|
+| [![Erikonda](https://github.com/ErikondaG.png?size=80)](https://github.com/ErikondaG) |
+| Desarrollador |
+
+
+
+</div>
+
+---
+
+<div align="center">
+  Proyecto Freelance de Erik Silva S. junto con Jairo Quezada.
+</div>
