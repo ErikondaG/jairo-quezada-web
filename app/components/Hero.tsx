@@ -15,7 +15,7 @@ export default function Hero() {
     const panelRef = useRef<HTMLDivElement>(null);
     const pinRef = useRef<HTMLDivElement>(null);
     const spacerRef = useRef<HTMLDivElement>(null);
-    const navButtonClass = "text-black text-2xl hover:text-gray-500 transition-colors duration-300 tracking-wide";
+    const navButtonClass = "font-[family-name:var(--font-Playfair)] text-black text-2xl hover:text-gray-500 hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
     const hfotoRef = useRef<HTMLDivElement>(null)
 
     useGSAP(() => {
@@ -39,7 +39,7 @@ export default function Hero() {
             },
         });
 
-        tl.to(pinRef.current, { height: "100px" }, 0);
+        tl.to(pinRef.current, { height: "90px" }, 0);
         tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
         tl.to(panelRef.current, { opacity: 0.9 }, 0);
