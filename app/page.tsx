@@ -1,11 +1,11 @@
 import Hero from "./components/Hero";
-import Placeholder from "./components/Placeholder";
+import Biografia from "./components/Biografia";
 
 export default function Home() {
   return (
     <>
     <Hero/>
-    <Placeholder/>
+    <Biografia/>
     {/* mas secciones despues*/}
     </>
   );

@@ -31,11 +31,13 @@ export default function Hero() {
         gsap.set(logoRef.current, { x: offset });
 
         const tl = gsap.timeline({
+            defaults: { ease: "none"},
             scrollTrigger: {
                 trigger: spacerRef.current,
                 start: "top top",
-                end: () => "+=" + window.innerHeight * 0.8,
+                end: "bottom top",
                 scrub: true,
+                markers: true,
             },
         });
 
@@ -43,7 +45,7 @@ export default function Hero() {
         tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
         tl.to(panelRef.current, { opacity: 0.9 }, 0);
-        tl.to(hfotoRef.current, { opacity: 0}, 0);
+        tl.to(hfotoRef.current, { opacity: 0 }, 0);
     });
 
     return (
