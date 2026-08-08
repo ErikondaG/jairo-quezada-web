@@ -79,6 +79,7 @@ export default function Hero() {
 
                             <nav ref={navRef} className="flex gap-15 opacity-0">
                                 <button className={navButtonClass}>Biografía</button>
+                                <button className={navButtonClass}>Trayectoria</button>
                                 <button className={navButtonClass}>Música</button>
                                 <button className={navButtonClass}>Contacto</button>
                             </nav>

@@ -1,0 +1,101 @@
+"use client"
+import { useRef } from "react";
+import { useGSAP } from "@gsap/react";
+import gsap from "gsap";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
+import Image from "next/image";
+import Container from "./Container";
+
+gsap.registerPlugin(ScrollTrigger);
+
+const fotos = ["/Jairo-bio.png", "/jairo-bio2.png", "/Jairo-bio3.png", "/Jairo-bio4.png"];
+
+const logros = [
+    { año: "2017", texto: "Festival de la Voz de San Bernardo" },
+    { año: "2018", texto: "Festival \"Persiguiendo un Sueño\"" },
+    { año: "2019", texto: "Festival \"Un Canto al Mar\", Concón" },
+    { año: "2023", texto: "Campeón nacional KWC Chile, mundial en Panamá" },
+];
+
+export default function Trayectoria() {
+    const fotosRef = useRef<(HTMLDivElement | null)[]>([]);
+    const lineaRef = useRef<HTMLDivElement>(null);
+    const puntosRef = useRef<(HTMLDivElement | null)[]>([]);
+    const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+
+    const seccionRef = useRef<HTMLDivElement>(null);
+
+useGSAP(() => {
+    const tl = gsap.timeline({
+        scrollTrigger: {
+            trigger: seccionRef.current,
+            start: "center center",
+            end: () => "+=" + window.innerHeight,
+            pin: true,
+            pinSpacing: true,
+            scrub: true,
+        },
+        defaults: { ease: "none" },
+    });
+
+    tl.to(lineaRef.current, { height: "100%" });
+
+    logros.forEach((_, i) => {
+        const posicion = i / logros.length;
+        tl.to(itemsRef.current[i], { opacity: 1 }, posicion);
+        tl.to(puntosRef.current[i], { backgroundColor: "#e5e7eb" }, posicion);
+
+        if (i > 0) {
+            const anchoTransicion = 0.05;
+            tl.to(fotosRef.current[i - 1], { opacity: 0, duration: anchoTransicion }, posicion - anchoTransicion);
+            tl.to(fotosRef.current[i], { opacity: 1, duration: anchoTransicion }, posicion);
+        } else {
+            tl.set(fotosRef.current[i], { opacity: 1 }, posicion);
+        }
+    });
+});
+
+    return (
+        <section ref={seccionRef} className="bg-black min-h-screen flex items-center py-32">
+            <Container>
+                <div className="flex flex-row-reverse gap-16 items-center">
+                    <div className="flex-1 relative h-[70vh] rounded-lg overflow-hidden">
+                        {fotos.map((src, i) => (
+                            <div
+                                key={i}
+                                ref={(el) => { fotosRef.current[i] = el; }}
+                                className="absolute inset-0"
+                                style={{ opacity: i === 0 ? 1 : 0 }}
+                            >
+                                <Image src={src} alt="Jairo Quezada" fill className="object-cover grayscale" />
+                            </div>
+                        ))}
+                    </div>
+
+                    <div className="flex-[2] relative pl-12">
+                        <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
+                            <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
+                        </div>
+
+                        {logros.map((logro, i) => (
+                            <div
+                                key={i}
+                                ref={(el) => { itemsRef.current[i] = el; }}
+                                className="mb-16 last:mb-0 opacity-30 transition-opacity duration-300"
+                            >
+                                <div
+                                    ref={(el) => { puntosRef.current[i] = el; }}
+                                    className="absolute -ml-[3.2rem] mt-1 w-3 h-3 rounded-full bg-gray-700"
+                                ></div>
+                                <p className="text-gray-200 text-3xl mb-1 font-[family-name:var(--font-playfair)]">
+                                    {logro.año}
+                                </p>
+                                <p className="text-gray-400 text-lg">{logro.texto}</p>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            </Container>
+        </section>
+    );
+}
