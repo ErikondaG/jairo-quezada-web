@@ -8,7 +8,7 @@ import Container from "./Container";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const fotos = ["/Jairo-bio.png", "/jairo-bio2.png", "/Jairo-bio3.png", "/Jairo-bio4.png"];
+const fotos = ["/Jairo-tra.png", "/jairo-tra2.jpg", "/Jairo-tra3.jpeg", "/Jairo-tra4.jpg"];
 
 const logros = [
     { año: "2017", texto: "Festival de la Voz de San Bernardo" },
@@ -38,8 +38,6 @@ useGSAP(() => {
         defaults: { ease: "none" },
     });
 
-    tl.to(lineaRef.current, { height: "100%" });
-
     tl.to(lineaRef.current, { height: "100%", duration: 1 }, 0);
 
     logros.forEach((_, i) => {
@@ -61,7 +59,7 @@ useGSAP(() => {
         <section ref={seccionRef} className="bg-black min-h-screen flex items-center py-32">
             <Container>
                 <div className="flex flex-row-reverse gap-16 items-center">
-                    <div className="flex-1 relative h-[70vh] rounded-lg overflow-hidden">
+                    <div className="flex-[1.3] relative h-[70vh] rounded-lg overflow-hidden">
                         {fotos.map((src, i) => (
                             <div
                                 key={i}
@@ -69,12 +67,12 @@ useGSAP(() => {
                                 className="absolute inset-0"
                                 style={{ opacity: i === 0 ? 1 : 0 }}
                             >
-                                <Image src={src} alt="Jairo Quezada" fill className="object-cover grayscale" />
+                                <Image src={src} alt="Jairo Quezada" fill className="object-contain" />
                             </div>
                         ))}
                     </div>
 
-                    <div className="flex-[2] relative pl-12">
+                    <div className="flex-[1.7] relative pl-12">
                         <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
                             <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
                         </div>
