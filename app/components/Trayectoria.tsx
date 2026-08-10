@@ -40,10 +40,12 @@ useGSAP(() => {
 
     tl.to(lineaRef.current, { height: "100%" });
 
+    tl.to(lineaRef.current, { height: "100%", duration: 1 }, 0);
+
     logros.forEach((_, i) => {
         const posicion = i / logros.length;
-        tl.to(itemsRef.current[i], { opacity: 1 }, posicion);
-        tl.to(puntosRef.current[i], { backgroundColor: "#e5e7eb" }, posicion);
+        tl.to(itemsRef.current[i], { opacity: 1, duration: 0.1 }, posicion);
+        tl.to(puntosRef.current[i], { backgroundColor: "#e5e7eb", duration: 0.1 }, posicion);
 
         if (i > 0) {
             const anchoTransicion = 0.05;
