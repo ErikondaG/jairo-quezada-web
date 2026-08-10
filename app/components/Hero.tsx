@@ -77,7 +77,7 @@ export default function Hero() {
                                 />
                             </div>
 
-                            <nav ref={navRef} className="flex gap-15 opacity-0">
+                            <nav ref={navRef} className="flex gap-15 opacity-0 ">
                                 <button className={navButtonClass}>Biografía</button>
                                 <button className={navButtonClass}>Trayectoria</button>
                                 <button className={navButtonClass}>Música</button>
