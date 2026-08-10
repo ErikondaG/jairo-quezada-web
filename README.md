@@ -33,10 +33,10 @@
 
 | Categoría | Tecnología |
 |-----------|-----------|
-| Framework | Next.js(https://nextjs.org/) / Tailwind(https://tailwindcss.com/) |
+| Framework | [Next.js](https://nextjs.org/) / [Tailwind](https://tailwindcss.com/) |
 | Lenguaje | TypeScript |
-| Hosting | Netlify(https://www.netlify.com/) |
-| Librerías | GSAP(https://gsap.com/) / Lenis(https://lenis.studiofreight.com/) |
+| Hosting | [Netlify](https://www.netlify.com/) |
+| Librerías | [GSAP](https://gsap.com/) / [Lenis](https://lenis.studiofreight.com/) |
 
 ---
 
