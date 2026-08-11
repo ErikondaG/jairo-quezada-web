@@ -55,7 +55,7 @@ export default function Hero() {
                 <div ref={cajaRef} className="absolute inset-0 flex flex-col items-center justify-center">
                     <div ref={hfotoRef} className="absolute inset-0">
                         <Image
-                            src="/Jairo-hero.jpg"
+                            src="/Jairo-hero-new.jpg"
                             alt="Jairo quezada sentado"
                             fill
                             priority

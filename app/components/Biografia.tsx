@@ -5,7 +5,7 @@ import gsap from "gsap";
 import Image from "next/image";
 import Container from "./Container";
 
-const fotos = ["/Jairo-bio.png", "/jairo-bio2.png", "/Jairo-bio3.png", "/Jairo-bio4.png"];
+const fotos = ["/Jairo-bio.png", "/jairo-bio2.png", "/Jairo-bio3-newest.png", "/Jairo-bio4.png"];
 
 export default function Biografia() {
     const fotosRef = useRef<(HTMLDivElement | null)[]>([]);
@@ -56,8 +56,8 @@ export default function Biografia() {
                             style={{
                                 background: "linear-gradient(75deg, transparent 25%, rgba(255,255,255,0.5) 50%, transparent 75%)",
                                 filter: "blur(40px)",
-                                maskImage: "linear-gradient(to bottom, black 60%, transparent 90%)",
-                                WebkitMaskImage: "linear-gradient(to bottom, black 70%, transparent 100%)",
+                                maskImage: "linear-gradient(to bottom, transparent, black 20%, black 60%, transparent 90%)",
+                                WebkitMaskImage: "linear-gradient(to bottom, transparent, black 20%, black 60%, transparent 90%)",
                             }}
                         ></div>
 
@@ -75,7 +75,7 @@ export default function Biografia() {
                                         WebkitMaskComposite: "source-in",
                                     }}
                                 >
-                                    <Image src={src} alt="Jairo Quezada" fill className="object-contain object-bottom grayscale" />
+                                    <Image src={src} alt="Jairo Quezada" fill className="object-contain object-bottom" />
                                 </div>
                             ))}
                         </div>
