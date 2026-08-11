@@ -22,10 +22,20 @@ export default function Trayectoria() {
     const lineaRef = useRef<HTMLDivElement>(null);
     const puntosRef = useRef<(HTMLDivElement | null)[]>([]);
     const itemsRef = useRef<(HTMLDivElement | null)[]>([]);
+    const lineaTrackRef = useRef<HTMLDivElement>(null);
 
     const seccionRef = useRef<HTMLDivElement>(null);
 
 useGSAP(() => {
+
+    const alturas = logros.map((_, i) => {
+        const punto = puntosRef.current[i];
+        if (!punto || !lineaTrackRef.current) return 0;
+        const puntoBox = punto.getBoundingClientRect();
+        const trackBox = lineaTrackRef.current.getBoundingClientRect();
+        return puntoBox.top - trackBox.top + puntoBox.height / 2;
+    });
+
     const tl = gsap.timeline({
         scrollTrigger: {
             trigger: seccionRef.current,
@@ -35,13 +45,11 @@ useGSAP(() => {
             pinSpacing: true,
             scrub: true,
         },
-        defaults: { ease: "none" },
     });
-
-    tl.to(lineaRef.current, { height: "100%", duration: 1 }, 0);
 
     logros.forEach((_, i) => {
         const posicion = i / logros.length;
+        tl.to(lineaRef.current, { height: alturas[i] + "px", duration: 0.15 }, posicion);
         tl.to(itemsRef.current[i], { opacity: 1, duration: 0.1 }, posicion);
         tl.to(puntosRef.current[i], { backgroundColor: "#e5e7eb", duration: 0.1 }, posicion);
 
@@ -53,6 +61,8 @@ useGSAP(() => {
             tl.set(fotosRef.current[i], { opacity: 1 }, posicion);
         }
     });
+
+tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
 });
 
     return (
@@ -73,7 +83,7 @@ useGSAP(() => {
                     </div>
 
                     <div className="flex-[1.7] relative pl-12">
-                        <div className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
+                        <div ref={lineaTrackRef} className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
                             <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
                         </div>
 
