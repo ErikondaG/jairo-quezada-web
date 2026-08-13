@@ -5,6 +5,7 @@ import gsap from "gsap";
 import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Container from "./Container";
+import Reveal from "./Reveal";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -68,43 +69,45 @@ tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
     return (
         <section ref={seccionRef} className="bg-black min-h-screen flex items-center py-32">
             <Container>
-                <div className="flex flex-row-reverse gap-16 items-center">
-                    <div className="flex-[1.3] relative h-[70vh] rounded-lg overflow-hidden">
-                        {fotos.map((src, i) => (
-                            <div
-                                key={i}
-                                ref={(el) => { fotosRef.current[i] = el; }}
-                                className="absolute inset-0"
-                                style={{ opacity: i === 0 ? 1 : 0 }}
-                            >
-                                <Image src={src} alt="Jairo Quezada" fill className="object-contain" />
-                            </div>
-                        ))}
-                    </div>
-
-                    <div className="flex-[1.7] relative pl-12">
-                        <div ref={lineaTrackRef} className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
-                            <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
+                <Reveal>
+                    <div className="flex flex-row-reverse gap-16 items-center">
+                        <div className="flex-[1.3] relative h-[70vh] rounded-lg overflow-hidden">
+                            {fotos.map((src, i) => (
+                                <div
+                                    key={i}
+                                    ref={(el) => { fotosRef.current[i] = el; }}
+                                    className="absolute inset-0"
+                                    style={{ opacity: i === 0 ? 1 : 0 }}
+                                >
+                                    <Image src={src} alt="Jairo Quezada" fill className="object-contain" />
+                                </div>
+                            ))}
                         </div>
 
-                        {logros.map((logro, i) => (
-                            <div
-                                key={i}
-                                ref={(el) => { itemsRef.current[i] = el; }}
-                                className="mb-16 last:mb-0 opacity-30 transition-opacity duration-300"
-                            >
-                                <div
-                                    ref={(el) => { puntosRef.current[i] = el; }}
-                                    className="absolute -ml-[3.2rem] mt-1 w-3 h-3 rounded-full bg-gray-700"
-                                ></div>
-                                <p className="text-gray-200 text-3xl mb-1 font-[family-name:var(--font-playfair)]">
-                                    {logro.año}
-                                </p>
-                                <p className="text-gray-400 text-lg">{logro.texto}</p>
+                        <div className="flex-[1.7] relative pl-12">
+                            <div ref={lineaTrackRef} className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
+                                <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
                             </div>
-                        ))}
+
+                            {logros.map((logro, i) => (
+                                <div
+                                    key={i}
+                                    ref={(el) => { itemsRef.current[i] = el; }}
+                                    className="mb-16 last:mb-0 opacity-30 transition-opacity duration-300"
+                                >
+                                    <div
+                                        ref={(el) => { puntosRef.current[i] = el; }}
+                                        className="absolute -ml-[3.2rem] mt-1 w-3 h-3 rounded-full bg-gray-700"
+                                    ></div>
+                                    <p className="text-gray-200 text-3xl mb-1 font-[family-name:var(--font-playfair)]">
+                                        {logro.año}
+                                    </p>
+                                    <p className="text-gray-400 text-lg">{logro.texto}</p>
+                                </div>
+                            ))}
+                        </div>
                     </div>
-                </div>
+                </Reveal>
             </Container>
         </section>
     );

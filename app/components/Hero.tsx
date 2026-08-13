@@ -15,7 +15,7 @@ export default function Hero() {
     const panelRef = useRef<HTMLDivElement>(null);
     const pinRef = useRef<HTMLDivElement>(null);
     const spacerRef = useRef<HTMLDivElement>(null);
-    const navButtonClass = "font-[family-name:var(--font-Playfair)] text-black text-2xl hover:text-gray-500 hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
+    const navButtonClass = "font-[family-name:var(--font-Playfair)] text-black text-2xl hover:text-gray-700 hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
     const hfotoRef = useRef<HTMLDivElement>(null)
 
     useGSAP(() => {
@@ -40,10 +40,10 @@ export default function Hero() {
             },
         });
 
-        tl.to(pinRef.current, { height: "90px" }, 0);
+        tl.to(pinRef.current, { height: "110px" }, 0);
         tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
-        tl.to(panelRef.current, { opacity: 0.9 }, 0);
+        tl.to(panelRef.current, { opacity: 1 }, 0);
         tl.to(hfotoRef.current, { opacity: 0 }, 0);
     });
 
@@ -63,7 +63,14 @@ export default function Hero() {
                         />
                     </div> 
 
-                    <div ref={panelRef} className="absolute inset-0 bg-white opacity-0"></div>
+                    <div 
+                        ref={panelRef} 
+                        className="absolute inset-0"
+                        style={{
+                            background: "linear-gradient(to bottom, rgba(255,255,255,1), rgba(255,255,255,0))",
+                            opacity: 0,
+                        }}
+                    ></div>
 
                     <Container>
                         <div className="flex items-center justify-between relative z-10">
