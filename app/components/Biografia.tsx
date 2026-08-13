@@ -56,7 +56,7 @@ export default function Biografia() {
                             style={{
                                 background: "linear-gradient(75deg, transparent 25%, rgba(255,255,255,0.5) 50%, transparent 75%)",
                                 filter: "blur(40px)",
-                                maskImage: "linear-gradient(to bottom, transparent, black 20%, black 70%, transparent 100%)",
+                                maskImage: "linear-gradient(to bottom, transparent, black 10%, black 80%, transparent 100%)",
                                 WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 80%, transparent 100%)",
                             }}
                         ></div>
