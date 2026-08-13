@@ -19,7 +19,7 @@ export default function Hero() {
     const hfotoRef = useRef<HTMLDivElement>(null)
 
     useGSAP(() => {
-        gsap.from(cajaRef.current, { opacity: 0, y: 50, duration: 1 });
+        gsap.from(cajaRef.current, { opacity: 0,  duration: 1.2, ease: "power2.out" });
     });
 
     useGSAP(() => {
@@ -28,7 +28,7 @@ export default function Hero() {
         const centroPantalla = window.innerWidth / 2;
         const offset = centroPantalla - centroLogo;
 
-        gsap.set(logoRef.current, { x: offset });
+        gsap.set(logoRef.current, { x: offset, opacity: 1 });
 
         const tl = gsap.timeline({
             defaults: { ease: "none"},
@@ -67,7 +67,7 @@ export default function Hero() {
 
                     <Container>
                         <div className="flex items-center justify-between relative z-10">
-                            <div ref={logoRef} className="relative z-10">
+                            <div ref={logoRef} className="relative z-10 opacity-0">
                                 <Image
                                     src="/Logo-negro.png"
                                     alt="Logo Jairo Quezada color negro"
