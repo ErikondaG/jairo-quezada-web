@@ -9,7 +9,7 @@ const videos = [
 
 export default function Musica() {
     return (
-        <section className="bg-black py-32 pt-32">
+        <section id="musica" className="bg-black py-32 pt-32">
             <Container>
                 <Reveal>
                     <h2 className="text-white text-5xl mb-16 font-[family-name:var(--font-playfair)]">

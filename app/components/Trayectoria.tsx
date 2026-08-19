@@ -52,7 +52,7 @@ useGSAP(() => {
         const posicion = i / logros.length;
         tl.to(lineaRef.current, { height: alturas[i] + "px", duration: 0.15 }, posicion);
         tl.to(itemsRef.current[i], { opacity: 1, duration: 0.1 }, posicion);
-        tl.to(puntosRef.current[i], { backgroundColor: "#e5e7eb", duration: 0.1 }, posicion);
+        tl.to(puntosRef.current[i], { backgroundColor: "#c9a86a", duration: 0.1 }, posicion);
 
         if (i > 0) {
             const anchoTransicion = 0.05;
@@ -67,7 +67,7 @@ tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
 });
 
     return (
-        <section ref={seccionRef} className="bg-black min-h-screen flex items-center py-32">
+        <section id="trayectoria" ref={seccionRef} className="bg-surface min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex flex-row-reverse gap-16 items-center">
@@ -85,8 +85,8 @@ tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
                         </div>
 
                         <div className="flex-[1.7] relative pl-12">
-                            <div ref={lineaTrackRef} className="absolute left-0 top-2 bottom-2 w-[2px] bg-gray-800">
-                                <div ref={lineaRef} className="w-full bg-gray-200" style={{ height: "0%" }}></div>
+                            <div ref={lineaTrackRef} className="absolute left-0 top-2 bottom-2 w-1 bg-ink-muted opacity-30">
+                                <div ref={lineaRef} className="w-full bg-accent" style={{ height: "0%" }}></div>
                             </div>
 
                             {logros.map((logro, i) => (
@@ -97,12 +97,12 @@ tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
                                 >
                                     <div
                                         ref={(el) => { puntosRef.current[i] = el; }}
-                                        className="absolute -ml-[3.2rem] mt-1 w-3 h-3 rounded-full bg-gray-700"
+                                        className="absolute -ml-[3.44rem] mt-1 w-5 h-5 rounded-full bg-ink-muted"
                                     ></div>
-                                    <p className="text-gray-200 text-3xl mb-1 font-[family-name:var(--font-playfair)]">
+                                    <p className="text-ink text-3xl mb-1 font-[family-name:var(--font-playfair)]">
                                         {logro.año}
                                     </p>
-                                    <p className="text-gray-400 text-lg">{logro.texto}</p>
+                                    <p className="text-ink-muted text-lg">{logro.texto}</p>
                                 </div>
                             ))}
                         </div>
@@ -111,4 +111,4 @@ tl.to(lineaRef.current, { height: "100%", duration: 0.15 }, 1);
             </Container>
         </section>
     );
-}
+} 

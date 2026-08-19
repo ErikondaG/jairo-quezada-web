@@ -31,7 +31,7 @@ export default function Contacto() {
     }
 
     return (
-        <section className="bg-black min-h-screen flex items-center py-32">
+        <section id="contacto" className="bg-black min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex gap-16 items-center">
@@ -78,7 +78,7 @@ export default function Contacto() {
                                 <button
                                     type="submit"
                                     disabled={status === "enviando"}
-                                    className="text-black bg-gray-200 hover:bg-white hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-lg font-[family-name:var(--font-playfair)] disabled:opacity-50"
+                                    className="text-black bg-gray-200 hover:bg-surface hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-lg font-[family-name:var(--font-playfair)] disabled:opacity-50"
                                 >
                                     {status === "enviando" ? "Enviando..." : "Enviar mensaje"}
                                 </button>

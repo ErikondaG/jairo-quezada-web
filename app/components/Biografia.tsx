@@ -47,7 +47,7 @@ export default function Biografia() {
     });
 
     return (
-        <section className="bg-black min-h-screen flex items-center py-32">
+        <section id="biografia" className="bg-surface min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex gap-16 items-center">
@@ -56,7 +56,7 @@ export default function Biografia() {
                                 ref={brilloRef}
                                 className="absolute -inset-20 pointer-events-none"
                                 style={{
-                                    background: "linear-gradient(75deg, transparent 25%, rgba(255,255,255,0.5) 50%, transparent 75%)",
+                                    background: "linear-gradient(75deg, transparent 25%, rgba(201,168,106,0.35) 50%, transparent 75%)",
                                     filter: "blur(40px)",
                                     maskImage: "linear-gradient(to bottom, transparent, black 0%, black 80%, transparent 100%)",
                                     WebkitMaskImage: "linear-gradient(to bottom, transparent, black 10%, black 80%, transparent 100%)",
@@ -84,10 +84,10 @@ export default function Biografia() {
                         </div>
 
                         <div className="w-1/2">
-                            <h2 className="text-white text-7xl mb-20 font-[family-name:var(--font-playfair)]">
+                            <h2 className="text-ink text-7xl mb-20 font-[family-name:var(--font-playfair)]">
                                 Quién es Jairo Quezada
                             </h2>
-                            <p className="text-gray-300 text-4xl leading-relaxed mb-6">
+                            <p className="text-ink-muted text-4xl leading-relaxed mb-6">
                                 Cantante, compositor, autor y guitarrista de San Bernardo. Comenzó a cantar profesionalmente a los 15 años, y desde entonces ha llevado su música a escenarios de Chile y el extranjero.
                             </p>
                         </div>
