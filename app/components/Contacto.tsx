@@ -31,11 +31,11 @@ export default function Contacto() {
     }
 
     return (
-        <section id="contacto" className="bg-black min-h-screen flex items-center py-32">
+        <section id="contacto" className="bg-surface min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex gap-16 items-center">
-                        <div className="w-1/2 relative h-[70vh] rounded-lg overflow-hidden "> 
+                        <div className="w-1/2 relative h-[70vh] rounded-lg overflow-hidden ">
                             <Image
                                 src="/Jairo-con.jpg"
                                 alt="Jairo Quezada"
@@ -45,7 +45,7 @@ export default function Contacto() {
                         </div>
 
                         <div className="w-1/2">
-                            <h2 className="text-white text-6xl mb-4 font-[family-name:var(--font-playfair)]">
+                            <h2 className="text-ink text-6xl mb-4 font-[family-name:var(--font-playfair)]">
                                 Contacto
                             </h2>
 
@@ -56,7 +56,7 @@ export default function Contacto() {
                                     required
                                     value={form.nombre}
                                     onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                                    className="bg-transparent border-b border-gray-600 text-white text-lg py-2 focus:outline-none focus:border-gray-200 transition-colors"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors"
                                 />
                                 <input
                                     type="email"
@@ -64,7 +64,7 @@ export default function Contacto() {
                                     required
                                     value={form.email}
                                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                                    className="bg-transparent border-b border-gray-600 text-white text-lg py-2 focus:outline-none focus:border-gray-200 transition-colors"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors"
                                 />
                                 <textarea
                                     placeholder="Mensaje"
@@ -72,7 +72,7 @@ export default function Contacto() {
                                     rows={4}
                                     value={form.mensaje}
                                     onChange={(e) => setForm({ ...form, mensaje: e.target.value })}
-                                    className="bg-transparent border-b border-gray-600 text-white text-lg py-2 focus:outline-none focus:border-gray-200 transition-colors resize-none"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors resize-none"
                                 ></textarea>
 
                                 <button
