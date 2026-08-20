@@ -16,11 +16,30 @@ export default function Hero() {
     const panelRef = useRef<HTMLDivElement>(null);
     const pinRef = useRef<HTMLDivElement>(null);
     const spacerRef = useRef<HTMLDivElement>(null);
-    const navButtonClass = "font-[family-name:var(--font-Playfair)] text-black text-2xl hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
-    const hfotoRef = useRef<HTMLDivElement>(null)
+    const hfotoRef = useRef<HTMLDivElement>(null);
+    const botonRef = useRef<HTMLDivElement>(null);
+
+    const navButtonClass =
+        "font-[family-name:var(--font-Playfair)] text-black text-2xl hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
 
     useGSAP(() => {
-        gsap.from(cajaRef.current, { opacity: 0,  duration: 1.2, ease: "power2.out" });
+        gsap.from(cajaRef.current, { opacity: 0, duration: 1.2, ease: "power2.out" });
+
+        gsap.from(botonRef.current, {
+            opacity: 0,
+            y: 20,
+            duration: 1.5,
+            ease: "power2.out",
+            delay: 0.8,
+        });
+
+        gsap.to(botonRef.current, {
+            y: -8,
+            repeat: -1,
+            yoyo: true,
+            duration: 1.6,
+            ease: "sine.inOut",
+        });
     });
 
     useGSAP(() => {
@@ -32,7 +51,7 @@ export default function Hero() {
         gsap.set(logoRef.current, { x: offset, opacity: 1 });
 
         const tl = gsap.timeline({
-            defaults: { ease: "none"},
+            defaults: { ease: "none" },
             scrollTrigger: {
                 trigger: spacerRef.current,
                 start: "top top",
@@ -46,15 +65,16 @@ export default function Hero() {
         tl.to(navRef.current, { opacity: 1 }, 0);
         tl.to(panelRef.current, { opacity: 1, background: "rgba(255,255,255,0.8)", backdropFilter: "blur(5px)" }, 0);
         tl.to(hfotoRef.current, { opacity: 0 }, 0);
+        tl.to(botonRef.current, { opacity: 0 }, 0);
     });
 
-function irA(id: string, offsetY = 90) {
-    gsap.to(window, {
-        scrollTo: { y: `#${id}`, offsetY },
-        duration: 1.2,
-        ease: "power2.inOut",
-    });
-}
+    function irA(id: string, offsetY = 90) {
+        gsap.to(window, {
+            scrollTo: { y: `#${id}`, offsetY },
+            duration: 1.2,
+            ease: "power2.inOut",
+        });
+    }
 
     return (
         <>
@@ -62,6 +82,7 @@ function irA(id: string, offsetY = 90) {
 
             <div ref={pinRef} className="fixed top-0 left-0 w-full h-screen z-50 overflow-hidden">
                 <div ref={cajaRef} className="absolute inset-0 flex flex-col items-center justify-center">
+
                     <div ref={hfotoRef} className="absolute inset-0">
                         <Image
                             src="/Jairo-hero-new.jpg"
@@ -70,10 +91,10 @@ function irA(id: string, offsetY = 90) {
                             priority
                             className="object-cover object-[25%_35%]"
                         />
-                    </div> 
+                    </div>
 
-                    <div 
-                        ref={panelRef} 
+                    <div
+                        ref={panelRef}
                         className="absolute inset-0"
                         style={{
                             background: "rgba(255,255,255,0.8)",
@@ -94,7 +115,7 @@ function irA(id: string, offsetY = 90) {
                                 />
                             </div>
 
-                            <nav ref={navRef} className="flex gap-15 opacity-0  ">
+                            <nav ref={navRef} className="flex items-center gap-15 opacity-0">
                                 <button onClick={() => irA("biografia", 0)} className={navButtonClass}>Biografía</button>
                                 <button onClick={() => irA("trayectoria")} className={navButtonClass}>Trayectoria</button>
                                 <button onClick={() => irA("musica")} className={navButtonClass}>Música</button>
@@ -120,6 +141,30 @@ function irA(id: string, offsetY = 90) {
                             </nav>
                         </div>
                     </Container>
+
+                    <div
+                        ref={botonRef}
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer text-black hover:text-accent transition-colors"
+                        onClick={() => irA("biografia", 0)}
+                    >
+                        <span className="text-2xl tracking-[0.2em] uppercase font-[family-name:var(--font-black)]">
+                            Descubre más
+                        </span>
+                        <svg
+                            width="56"
+                            height="56"
+                            viewBox="0 0 24 24"
+                            fill="none"
+                            stroke="currentColor"
+                            strokeWidth="1.2"
+                            strokeLinecap="round"
+                            strokeLinejoin="round"
+                        >
+                            <path d="M12 5v14" />
+                            <path d="M5 12l7 7 7-7" />
+                        </svg>
+                    </div>
+
                 </div>
             </div>
         </>
