@@ -144,27 +144,28 @@ export default function Hero() {
 
                     <div
                         ref={botonRef}
-                        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-2 cursor-pointer text-black hover:text-accent transition-colors"
+                        className="absolute bottom-10 left-1/2 -translate-x-1/2 z-20 flex flex-col items-center gap-3 cursor-pointer text-black hover:text-accent transition-colors"
                         onClick={() => irA("biografia", 0)}
                     >
-                        <span className="text-2xl tracking-[0.2em] uppercase font-[family-name:var(--font-black)]">
+                        <span className="text-xl tracking-[0.2em] uppercase font-[family-name:var(--font-Playfair)] font-bold">
                             Descubre más
                         </span>
-                        <svg
-                            width="56"
-                            height="56"
-                            viewBox="0 0 24 24"
-                            fill="none"
-                            stroke="currentColor"
-                            strokeWidth="1.2"
-                            strokeLinecap="round"
-                            strokeLinejoin="round"
-                        >
-                            <path d="M12 5v14" />
-                            <path d="M5 12l7 7 7-7" />
-                        </svg>
+                        <div className="flex items-center justify-center w-16 h-16 rounded-full bg-white/30 backdrop-blur-sm hover:bg-white transition-colors">
+                            <svg
+                                width="28"
+                                height="28"
+                                viewBox="0 0 24 24"
+                                fill="none"
+                                stroke="currentColor"
+                                strokeWidth="1.4"
+                                strokeLinecap="round"
+                                strokeLinejoin="round"
+                            >
+                                <path d="M12 5v14" />
+                                <path d="M5 12l7 7 7-7" />
+                            </svg>
+                        </div>
                     </div>
-
                 </div>
             </div>
         </>
