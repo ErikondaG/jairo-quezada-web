@@ -25,21 +25,23 @@ export default function Hero() {
     useGSAP(() => {
         gsap.from(cajaRef.current, { opacity: 0, duration: 1.2, ease: "power2.out" });
 
-        gsap.from(botonRef.current, {
-            opacity: 0,
-            y: 20,
-            duration: 1.5,
-            ease: "power2.out",
-            delay: 0.8,
-        });
+        if (window.scrollY < 50) {
+            gsap.fromTo(
+                botonRef.current,
+                { opacity: 0, y: 20 },
+                { opacity: 1, y: 0, duration: 1.5, ease: "power2.out", delay: 0.8 }
+            );
 
-        gsap.to(botonRef.current, {
-            y: -8,
-            repeat: -1,
-            yoyo: true,
-            duration: 1.6,
-            ease: "sine.inOut",
-        });
+            gsap.to(botonRef.current, {
+                y: -8,
+                repeat: -1,
+                yoyo: true,
+                duration: 1.6,
+                ease: "sine.inOut",
+            });
+        } else {
+            gsap.set(botonRef.current, { opacity: 0 });
+        }
     });
 
     useGSAP(() => {
