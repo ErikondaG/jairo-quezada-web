@@ -31,7 +31,7 @@ export default function Contacto() {
     }
 
     return (
-        <section id="contacto" className="bg-surface min-h-screen flex items-center py-32">
+        <section id="contacto" className="bg-surface-alt min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex gap-16 items-center">

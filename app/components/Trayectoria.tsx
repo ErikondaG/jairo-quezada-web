@@ -210,7 +210,7 @@ export default function Trayectoria() {
     }
 
     return (
-        <section id="trayectoria" ref={seccionRef} className="bg-surface relative">
+        <section id="trayectoria" ref={seccionRef} className="bg-surface-alt relative">
             <Container>
                 <Reveal>
                     <div className="min-h-screen flex items-center py-32">

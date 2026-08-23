@@ -18,7 +18,7 @@ export default function Reveal({ children, delay = 0 }: { children: ReactNode; d
             ease: "power2.out",
             scrollTrigger: {
                 trigger: ref.current,
-                start: "top 65%",
+                start: "top 80%",
                 toggleActions: "play none none none",
             },
         });
