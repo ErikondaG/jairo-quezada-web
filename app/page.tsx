@@ -14,7 +14,6 @@ export default function Home() {
     < Musica/>
     <Contacto/>
     <Footer/>
-    {/* mas secciones despues*/}
     </>
   );
 }

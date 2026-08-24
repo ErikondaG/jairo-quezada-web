@@ -11,7 +11,7 @@ import TituloSeccion from "./TituloSeccion";
 
 gsap.registerPlugin(ScrollTrigger);
 
-const fotos = ["/Jairo-tra.png", "/jairo-tra2.jpg", "/Jairo-tra3.jpeg", "/Jairo-tra4.jpg"];
+const fotos = ["/Jairo-tra.png", "/jairo-tra2.jpg", "/Jairo-tra3.jpeg", "/Jairo-tra4.png", "/Jairo-tra5.png", "/Jairo-tra6.png", "/Jairo-tra7.png", "/Jairo-tra8.png", "/Jairo-tra9.png", "/Jairo-tra10.png", "/Jairo-tra11.png"];
 
 const logros = [
     { año: "2017", texto: "Primer lugar, Festival de la Voz de San Bernardo" },
