@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Container from "./Container";
 import Reveal from "./Reveal";
+import TituloSeccion from "./TituloSeccion";
 
 export default function Contacto() {
     const [form, setForm] = useState({ nombre: "", email: "", mensaje: "" });
@@ -31,7 +32,7 @@ export default function Contacto() {
     }
 
     return (
-        <section id="contacto" className="bg-surface-alt min-h-screen flex items-center py-32">
+        <section id="contacto" className="bg-surface-alt border-t border-accent/10 min-h-screen flex items-center py-32">
             <Container>
                 <Reveal>
                     <div className="flex gap-16 items-center">
@@ -45,9 +46,9 @@ export default function Contacto() {
                         </div>
 
                         <div className="w-1/2">
-                            <h2 className="text-ink text-6xl mb-4 font-[family-name:var(--font-playfair)]">
-                                Contacto
-                            </h2>
+                    <TituloSeccion>
+                        Contacto
+                    </TituloSeccion>
 
                             <form onSubmit={enviar} className="flex flex-col gap-6">
                                 <input

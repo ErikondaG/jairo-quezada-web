@@ -3,6 +3,7 @@ import { useState } from "react";
 import Image from "next/image";
 import Container from "./Container";
 import Reveal from "./Reveal";
+import TituloSeccion from "./TituloSeccion";
 
 function BotonPlay({ tamaño = "w-16 h-16" }: { tamaño?: string }) {
     return (
@@ -97,12 +98,12 @@ export default function Musica() {
     const [categoriaActiva, setCategoriaActiva] = useState(0);
 
     return (
-        <section id="musica" className="bg-surface py-32 pt-32">
+        <section id="musica" className="bg-surface border-t border-accent/10 py-32 pt-32">
             <Container>
                 <Reveal>
-                    <h2 className="text-ink text-5xl mb-4 font-[family-name:var(--font-playfair)]">
+                    <TituloSeccion>
                         Música y Videos
-                    </h2>
+                        </TituloSeccion>
                     <p className="text-ink-muted text-lg mb-12">Lo más reciente</p>
                 </Reveal>
                 <Reveal>

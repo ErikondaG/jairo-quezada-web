@@ -7,6 +7,7 @@ import { ScrollTrigger } from "gsap/ScrollTrigger";
 import Image from "next/image";
 import Container from "./Container";
 import Reveal from "./Reveal";
+import TituloSeccion from "./TituloSeccion";
 
 gsap.registerPlugin(ScrollTrigger);
 
@@ -210,11 +211,12 @@ export default function Trayectoria() {
     }
 
     return (
-        <section id="trayectoria" ref={seccionRef} className="bg-surface-alt relative">
+        <section id="trayectoria" ref={seccionRef} className="bg-surface-alt border-t border-accent/10 relative">
             <Container>
                 <Reveal>
                     <div className="min-h-screen flex items-center py-32">
                         <div className="flex flex-col w-full gap-8">
+                            <TituloSeccion>Trayectoria</TituloSeccion>
                             <div className="flex flex-row-reverse gap-16 items-center w-full">
                                 <div className="flex-[1.3] relative h-[70vh] rounded-lg overflow-hidden">
                                     {fotos.map((src, i) => (
@@ -228,7 +230,6 @@ export default function Trayectoria() {
                                         </div>
                                     ))}
                                 </div>
-
                                 <div ref={viewportRef} className="flex-[1.7] relative h-[70vh] overflow-hidden">
                                     <div ref={trackRef} className="absolute inset-x-0 top-0 will-change-transform z-10">
                                         <div
