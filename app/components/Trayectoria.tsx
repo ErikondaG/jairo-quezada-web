@@ -21,10 +21,10 @@ const logros = [
     { año: "2022", texto: "Participación en \"Yo Soy Chile\" interpretando a Luis Miguel" },
     { año: "2023", texto: "Participación en The Voice Chile" },
     { año: "2023", texto: "Campeón nacional KWC Chile — semifinales en Panamá" },
-    { año: "2023", texto: "Lanzamiento del sencillo \"A la deriva\"" },
     { año: "2024", texto: "Lanzamiento del sencillo \"Desnudos\"" },
     { año: "2026", texto: "Lanzamiento del sencillo \"Ya me sané\"" },
     { año: "2026", texto: "Lanzamiento del sencillo \"Duele\"" },
+    { año: "2026", texto: "Lanzamiento del sencillo \"Cómo pensar en mañana\"" },
 ];
 
 const CANTIDAD_INICIAL = 4;

@@ -50,11 +50,11 @@ const categorias = [
     {
         nombre: "Sencillos",
         videos: [
-            { titulo: "A la deriva", id: "PiqvKFYomdA" },
             { titulo: "Viaje Espacial", id: "H-PqrrTdJSw" },
             { titulo: "Desnudos", id: "pY8ANO8jDQ4", portada: "/caratula-desnudos.png" },
             { titulo: "Ya me sané", id: "jFNBxR1MC18" },
             { titulo: "Duele", id: "hK-cf9qM7xs" },
+            { titulo: "Cómo pensar en mañana", id: "lyQrgyuSd4k" },
         ],
     },
     {
@@ -91,6 +91,13 @@ const categorias = [
             { titulo: "Presentación semifinales", id: "EFG5ERDzlbY" },
         ],
     },
+];
+
+const plataformas = [
+    { nombre: "Spotify", url: "https://open.spotify.com/intl-es/artist/5Xc7HccmWZ0fLqTnhNVvzC" },
+    { nombre: "Apple Music", url: "https://music.apple.com/cl/artist/jairo-quezada/1586396880" },
+    { nombre: "YouTube Music", url: "https://music.youtube.com/channel/UC4fQkMEShppmmSXAAdsLKIQ" },
+    { nombre: "Deezer", url: "https://www.deezer.com/es/artist/268562172" },
 ];
 
 export default function Musica() {
@@ -152,6 +159,26 @@ export default function Musica() {
                         </Reveal>
                     ))}
                 </div>
+                <Reveal>
+                    <div className="mt-24 pt-16 border-t border-accent/10 text-center">
+                        <p className="text-ink-muted text-sm tracking-[0.15em] uppercase mb-8 font-[family-name:var(--font-playfair)]">
+                            Disponible en todas las plataformas
+                        </p>
+                        <div className="flex justify-center gap-10 flex-wrap">
+                            {plataformas.map((p) => (
+                                <a
+                                    key={p.nombre}
+                                    href={p.url}
+                                    target="_blank"
+                                    rel="noopener noreferrer"
+                                    className="text-ink-muted hover:text-accent transition-colors text-lg font-[family-name:var(--font-playfair)]"
+                                >
+                                    {p.nombre}
+                                </a>
+                            ))}
+                        </div>
+                    </div>
+                </Reveal>
             </Container>
         </section>
     );
