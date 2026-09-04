@@ -5,7 +5,7 @@ import Container from "./Container";
 import Reveal from "./Reveal";
 import TituloSeccion from "./TituloSeccion";
 
-function BotonPlay({ tamaño = "w-16 h-16" }: { tamaño?: string }) {
+function BotonPlay({ tamaño = "w-14 h-14 sm:w-16 sm:h-16" }: { tamaño?: string }) {
     return (
         <div className={`flex items-center justify-center ${tamaño} rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent transition-colors duration-300`}>
             <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-accent group-hover:text-surface transition-colors duration-300 ml-1">
@@ -39,7 +39,7 @@ function VideoCard({ id, titulo, portada }: { id: string; titulo: string; portad
                     </button>
                 )}
             </div>
-            <p className="text-ink text-xl mt-4 font-[family-name:var(--font-playfair)]">{titulo}</p>
+            <p className="text-ink text-lg sm:text-xl mt-4 font-[family-name:var(--font-playfair)]">{titulo}</p>
         </div>
     );
 }
@@ -105,7 +105,7 @@ export default function Musica() {
     const [categoriaActiva, setCategoriaActiva] = useState(0);
 
     return (
-        <section id="musica" className="bg-surface border-t border-accent/10 py-32 pt-32">
+        <section id="musica" className="bg-surface border-t border-accent/10 py-20 sm:py-32">
             <Container>
                 <Reveal>
                     <TituloSeccion>
@@ -114,7 +114,7 @@ export default function Musica() {
                     <p className="text-ink-muted text-lg mb-12">Lo más reciente</p>
                 </Reveal>
                 <Reveal>
-                    <div className="aspect-[3/1] rounded-lg overflow-hidden relative mb-20 bg-surface-alt">
+                    <div className="aspect-[3/1] rounded-lg overflow-hidden relative mb-12 sm:mb-20 bg-surface-alt">
                         {reproduciendoDestacado ? (
                             <iframe
                                 src={`https://www.youtube.com/embed/${videoDestacado.id}?autoplay=1`}
@@ -127,19 +127,19 @@ export default function Musica() {
                             <button onClick={() => setReproduciendoDestacado(true)} className="group relative w-full h-full">
                                 <Image src="/banner-ya-me-sane.png" alt="Ya me sané" fill className="object-cover scale-[102%]" />
                                 <div className="absolute inset-0 flex items-center justify-center bg-black/20">
-                                    <BotonPlay tamaño="w-20 h-20" />
+                                    <BotonPlay tamaño="w-16 h-16 sm:w-20 sm:h-20" />
                                 </div>
                             </button>
                         )}
                     </div>
                 </Reveal>
                 <Reveal>
-                    <div className="flex gap-8 border-b border-ink-muted/20 mb-12">
+                    <div className="flex gap-6 sm:gap-8 border-b border-ink-muted/20 mb-12 overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {categorias.map((cat, i) => (
                             <button
                                 key={cat.nombre}
                                 onClick={() => setCategoriaActiva(i)}
-                                className={`pb-4 text-sm tracking-[0.15em] uppercase font-[family-name:var(--font-playfair)] transition-colors relative ${
+                                className={`pb-4 shrink-0 text-sm tracking-[0.15em] uppercase font-[family-name:var(--font-playfair)] transition-colors relative ${
                                     categoriaActiva === i ? "text-accent" : "text-ink-muted hover:text-ink"
                                 }`}
                             >
@@ -152,7 +152,7 @@ export default function Musica() {
                     </div>
                 </Reveal>
 
-                <div className="grid grid-cols-3 gap-8">
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
                     {categorias[categoriaActiva].videos.map((video, i) => (
                         <Reveal key={video.id} delay={i * 0.1}>
                             <VideoCard id={video.id} titulo={video.titulo} portada={video.portada} />
@@ -160,11 +160,11 @@ export default function Musica() {
                     ))}
                 </div>
                 <Reveal>
-                    <div className="mt-24 pt-16 border-t border-accent/10 text-center">
+                    <div className="mt-16 sm:mt-24 pt-16 border-t border-accent/10 text-center">
                         <p className="text-ink-muted text-sm tracking-[0.15em] uppercase mb-8 font-[family-name:var(--font-playfair)]">
                             Disponible en todas las plataformas
                         </p>
-                        <div className="flex justify-center gap-10 flex-wrap">
+                        <div className="flex justify-center gap-6 sm:gap-10 flex-wrap">
                             {plataformas.map((p) => (
                                 <a
                                     key={p.nombre}

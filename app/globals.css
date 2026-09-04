@@ -27,3 +27,7 @@ body {
   color: var(--color-ink);
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
+
+.pin-spacer {
+  width: 100% !important;
+}

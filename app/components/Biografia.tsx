@@ -48,11 +48,11 @@ export default function Biografia() {
     });
 
     return (
-        <section id="biografia" className="bg-surface border-t border-accent/10 min-h-screen flex items-center py-32">
+        <section id="biografia" className="bg-surface border-t border-accent/10 min-h-screen flex items-center py-20 sm:py-32">
             <Container>
                 <Reveal>
-                    <div className="flex gap-16 items-center">
-                        <div className="w-1/2 relative h-[75vh]">
+                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+                        <div className="w-full md:w-1/2 relative h-[50vh] sm:h-[60vh] md:h-[75vh] overflow-hidden">
                             <div
                                 ref={brilloRef}
                                 className="absolute -inset-20 pointer-events-none"
@@ -84,16 +84,17 @@ export default function Biografia() {
                             </div>
                         </div>
 
-                        <div className="w-1/2">
+                        <div className="w-full md:w-1/2">
                             <TituloSeccion>
                                 Quién es Jairo Quezada
                             </TituloSeccion>
-                            <p className="text-ink-muted text-4xl leading-relaxed mb-6">
+                            <p className="text-ink-muted text-lg sm:text-2xl md:text-3xl lg:text-4xl leading-relaxed mb-6">
                                 Cantante, compositor, autor y guitarrista de San Bernardo. Comenzó a cantar profesionalmente a los 15 años, y desde entonces ha llevado su música a escenarios de Chile y el extranjero.
                             </p>
                         </div>
                     </div>
-                </Reveal> 
+                </Reveal>
+
             </Container>
         </section>
     );

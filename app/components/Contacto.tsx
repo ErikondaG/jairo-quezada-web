@@ -32,11 +32,12 @@ export default function Contacto() {
     }
 
     return (
-        <section id="contacto" className="bg-surface-alt border-t border-accent/10 min-h-screen flex items-center py-32">
+        <section id="contacto" className="bg-surface-alt border-t border-accent/10 min-h-screen flex items-center py-20 sm:py-32">
             <Container>
                 <Reveal>
-                    <div className="flex gap-16 items-center">
-                        <div className="w-1/2 relative h-[70vh] rounded-lg overflow-hidden ">
+                    {/* flex-col en mobile, flex-row recién desde md */}
+                    <div className="flex flex-col md:flex-row gap-10 md:gap-16 items-center">
+                        <div className="w-full md:w-1/2 relative h-[40vh] sm:h-[50vh] md:h-[70vh] rounded-lg overflow-hidden">
                             <Image
                                 src="/Jairo-con.jpg"
                                 alt="Jairo Quezada"
@@ -45,10 +46,10 @@ export default function Contacto() {
                             />
                         </div>
 
-                        <div className="w-1/2">
-                    <TituloSeccion>
-                        Contacto
-                    </TituloSeccion>
+                        <div className="w-full md:w-1/2">
+                            <TituloSeccion>
+                                Contacto
+                            </TituloSeccion>
 
                             <form onSubmit={enviar} className="flex flex-col gap-6">
                                 <input
@@ -57,7 +58,7 @@ export default function Contacto() {
                                     required
                                     value={form.nombre}
                                     onChange={(e) => setForm({ ...form, nombre: e.target.value })}
-                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-base sm:text-lg py-2 focus:outline-none focus:border-accent transition-colors"
                                 />
                                 <input
                                     type="email"
@@ -65,7 +66,7 @@ export default function Contacto() {
                                     required
                                     value={form.email}
                                     onChange={(e) => setForm({ ...form, email: e.target.value })}
-                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-base sm:text-lg py-2 focus:outline-none focus:border-accent transition-colors"
                                 />
                                 <textarea
                                     placeholder="Mensaje"
@@ -73,13 +74,13 @@ export default function Contacto() {
                                     rows={4}
                                     value={form.mensaje}
                                     onChange={(e) => setForm({ ...form, mensaje: e.target.value })}
-                                    className="bg-transparent border-b border-ink-muted text-ink text-lg py-2 focus:outline-none focus:border-accent transition-colors resize-none"
+                                    className="bg-transparent border-b border-ink-muted text-ink text-base sm:text-lg py-2 focus:outline-none focus:border-accent transition-colors resize-none"
                                 ></textarea>
 
                                 <button
                                     type="submit"
                                     disabled={status === "enviando"}
-                                    className="text-black bg-gray-200 hover:bg-surface hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-lg font-[family-name:var(--font-playfair)] disabled:opacity-50"
+                                    className="text-black bg-gray-200 hover:bg-surface hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-base sm:text-lg font-[family-name:var(--font-playfair)] disabled:opacity-50"
                                 >
                                     {status === "enviando" ? "Enviando..." : "Enviar mensaje"}
                                 </button>

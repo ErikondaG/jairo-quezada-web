@@ -81,7 +81,7 @@ export default function Footer() {
             className="bg-surface border-t border-ink/10"
         >
             <Container>
-                <div className="py-16">
+                <div className="py-12 sm:py-16">
 
                     {/* Logo */}
                     <div className="flex flex-col items-center">
@@ -97,7 +97,7 @@ export default function Footer() {
                                 alt="Logo Jairo Quezada"
                                 width={180}
                                 height={100}
-                                className="w-auto h-16 object-contain transition-transform duration-500 group-hover:scale-105"
+                                className="w-auto h-12 sm:h-16 object-contain transition-transform duration-500 group-hover:scale-105"
                             />
                         </button>
 
@@ -117,7 +117,7 @@ export default function Footer() {
                             >
                                 <svg
                                     width="20"
-                                    height="20"
+                                    height="20" 
                                     viewBox="0 0 24 24"
                                     fill="currentColor"
                                 >
@@ -168,7 +168,7 @@ export default function Footer() {
                         <nav className="mt-10">
                             <ul
                                 ref={enlacesRef}
-                                className="flex flex-wrap justify-center gap-x-10 gap-y-4"
+                                className="flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-4"
                             >
                                 {enlaces.map((enlace) => (
                                     <li key={enlace.id}>
