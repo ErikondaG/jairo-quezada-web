@@ -29,10 +29,15 @@ export default function RootLayout({
 }>) {
   return (
     <html
-      lang="en"
-      className={`${geistSans.variable} ${geistMono.variable} ${Playfair.variable} h-full antialiased`}
+      lang="es"
+      className={`${geistSans.variable} ${geistMono.variable} ${Playfair.variable} h-full antialiased overflow-x-hidden`}
     >
-      <body className="min-h-full flex flex-col">{children}</body>
+      {/* overflow-x-hidden: red de seguridad global para elementos decorativos
+          (como el brillo de Biografía) que se desbordan intencionalmente de su
+          contenedor. Si llegan a tocar el borde real de la pantalla, se recortan
+          ahí (invisible), en vez de necesitar un overflow-hidden ajustado en
+          cada componente por separado. */}
+      <body className="min-h-full flex flex-col overflow-x-hidden">{children}</body>
     </html>
   );
 }

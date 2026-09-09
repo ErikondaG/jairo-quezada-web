@@ -180,7 +180,7 @@ export default function Footer() {
                                             onMouseLeave={(e) =>
                                                 leaveEnlace(e.currentTarget)
                                             }
-                                            className="inline-block text-ink-muted hover:text-accent text-sm tracking-wide transition-colors duration-300 cursor-pointer"
+                                            className="inline-block text-ink-muted hover:text-accent text-sm sm:text-base tracking-wide transition-colors duration-300 cursor-pointer"
                                         >
                                             {enlace.nombre}
                                         </button>
@@ -202,7 +202,7 @@ export default function Footer() {
                         ref={copyrightRef}
                         className="text-center"
                     >
-                        <p className="text-ink-muted text-xs tracking-wide">
+                        <p className="text-ink-muted text-xs sm:text-sm tracking-wide">
                             © {new Date().getFullYear()} Jairo Quezada.
                             Todos los derechos reservados.
                         </p>

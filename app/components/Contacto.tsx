@@ -80,7 +80,7 @@ export default function Contacto() {
                                 <button
                                     type="submit"
                                     disabled={status === "enviando"}
-                                    className="text-black bg-gray-200 hover:bg-surface hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-base sm:text-lg font-[family-name:var(--font-playfair)] disabled:opacity-50"
+                                    className="text-black bg-gray-200 hover:bg-surface hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 py-3 rounded-lg text-sm sm:text-base font-[family-name:var(--font-playfair)] disabled:opacity-50"
                                 >
                                     {status === "enviando" ? "Enviando..." : "Enviar mensaje"}
                                 </button>

@@ -32,14 +32,17 @@ function VideoCard({ id, titulo, portada }: { id: string; titulo: string; portad
                     ></iframe>
                 ) : (
                     <button onClick={() => setReproduciendo(true)} className="group relative w-full h-full">
-                        <Image src={miniatura} alt={titulo} fill className="object-cover" />
+                        {/* scale-125: la mayoría de las miniaturas de YouTube traen franjas
+                            negras horneadas en la propia imagen (no es algo que controlemos
+                            nosotros) — el zoom las saca del cuadro visible */}
+                        <Image src={miniatura} alt={titulo} fill className="object-cover scale-125" />
                         <div className="absolute inset-0 flex items-center justify-center bg-black/30">
                             <BotonPlay />
                         </div>
                     </button>
                 )}
             </div>
-            <p className="text-ink text-lg sm:text-xl mt-4 font-[family-name:var(--font-playfair)]">{titulo}</p>
+            <p className="text-ink text-base sm:text-xl mt-2 font-[family-name:var(--font-playfair)]">{titulo}</p>
         </div>
     );
 }
@@ -51,7 +54,7 @@ const categorias = [
         nombre: "Sencillos",
         videos: [
             { titulo: "Viaje Espacial", id: "H-PqrrTdJSw" },
-            { titulo: "Desnudos", id: "pY8ANO8jDQ4", portada: "/caratula-desnudos.png" },
+            { titulo: "Desnudos", id: "pY8ANO8jDQ4"},
             { titulo: "Ya me sané", id: "jFNBxR1MC18" },
             { titulo: "Duele", id: "hK-cf9qM7xs" },
             { titulo: "Cómo pensar en mañana", id: "lyQrgyuSd4k" },
@@ -111,7 +114,7 @@ export default function Musica() {
                     <TituloSeccion>
                         Música y Videos
                         </TituloSeccion>
-                    <p className="text-ink-muted text-lg mb-12">Lo más reciente</p>
+                    <p className="text-ink-muted text-base sm:text-lg mb-12">Lo más reciente</p>
                 </Reveal>
                 <Reveal>
                     <div className="aspect-[3/1] rounded-lg overflow-hidden relative mb-12 sm:mb-20 bg-surface-alt">
@@ -134,6 +137,10 @@ export default function Musica() {
                     </div>
                 </Reveal>
                 <Reveal>
+                    {/* overflow-x-auto + whitespace-nowrap: en vez de que la fila de
+                        pestañas se desborde de la pantalla (rompiendo TODO el sitio,
+                        igual que pasaba con el nav del Hero), ahora se puede deslizar
+                        horizontalmente solo esta fila, de forma controlada */}
                     <div className="flex gap-6 sm:gap-8 border-b border-ink-muted/20 mb-12 overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {categorias.map((cat, i) => (
                             <button
@@ -152,7 +159,9 @@ export default function Musica() {
                     </div>
                 </Reveal>
 
-                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 sm:gap-8">
+                {/* 1 columna en mobile, 2 desde sm, 3 desde lg — antes eran
+                    siempre 3, aplastadas en pantallas chicas */}
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-10 sm:gap-y-8">
                     {categorias[categoriaActiva].videos.map((video, i) => (
                         <Reveal key={video.id} delay={i * 0.1}>
                             <VideoCard id={video.id} titulo={video.titulo} portada={video.portada} />
@@ -171,7 +180,7 @@ export default function Musica() {
                                     href={p.url}
                                     target="_blank"
                                     rel="noopener noreferrer"
-                                    className="text-ink-muted hover:text-accent transition-colors text-lg font-[family-name:var(--font-playfair)]"
+                                    className="text-ink-muted hover:text-accent transition-colors text-sm sm:text-base font-[family-name:var(--font-playfair)]"
                                 >
                                     {p.nombre}
                                 </a>

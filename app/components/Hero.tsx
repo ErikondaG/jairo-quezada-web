@@ -22,6 +22,7 @@ export default function Hero() {
 
     const [menuAbierto, setMenuAbierto] = useState(false);
 
+    // Bloquea el scroll del body mientras el menú mobile está abierto
     useEffect(() => {
         document.body.style.overflow = menuAbierto ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
@@ -67,14 +68,12 @@ export default function Hero() {
                 start: "top top",
                 end: "bottom top",
                 scrub: true,
-                snap: {
-                    snapTo: [0, 1],
-                    duration: { min: 0.3, max: 0.6 },
-                    ease: "power2.inOut",
-                }
             },
         });
 
+        // En mobile, 100px de navbar compacta se siente muy alto en proporción
+        // a la pantalla; en desktop es apenas perceptible. Achicamos el target
+        // según el ancho de pantalla al momento de armar la animación.
         const altoCompacto = window.innerWidth < 640 ? "64px" : "100px";
 
         tl.to(pinRef.current, { height: altoCompacto }, 0);
@@ -97,6 +96,8 @@ export default function Hero() {
 
     return (
         <>
+            {/* dvh en vez de vh: se ajusta al alto real visible en mobile,
+                no al valor teórico que puede incluir la barra de direcciones */}
             <div ref={spacerRef} className="h-[100dvh]"></div>
 
             <div ref={pinRef} className="fixed top-0 left-0 w-full h-[100dvh] z-50 overflow-hidden">
@@ -108,7 +109,7 @@ export default function Hero() {
                             alt="Jairo quezada sentado"
                             fill
                             priority
-                            className="object-cover object-[35%_35%] sm:object-[25%_35%]"
+                            className="object-cover object-[15%_35%] sm:object-[25%_35%]"
                         />
                     </div>
 
@@ -123,8 +124,10 @@ export default function Hero() {
                     ></div>
 
                     <Container>
-                        <div className="flex items-center justify-between relative z-10">
-                            <div ref={logoRef} className="relative z-10 opacity-0 w-32 sm:w-40 md:w-48 lg:w-56">
+                        <div className="flex items-center justify-between relative z-[70]">
+                            {/* Logo: ancho responsive con h-auto para mantener proporción,
+                                en vez del tamaño fijo de 500px que desbordaba en mobile */}
+                            <div ref={logoRef} className="relative z-10 opacity-0 w-40 sm:w-48 md:w-56 lg:w-64">
                                 <Image
                                     src="/Logo-blanco.png"
                                     alt="Logo Jairo Quezada color blanco"
@@ -135,6 +138,7 @@ export default function Hero() {
                                 />
                             </div>
 
+                            {/* Nav de escritorio — oculto en mobile */}
                             <nav ref={navRef} className="hidden md:flex items-center gap-8 lg:gap-15 opacity-0">
                                 <button onClick={() => irA("biografia", 0)} className={navButtonClass}>Biografía</button>
                                 <button onClick={() => irA("trayectoria")} className={navButtonClass}>Trayectoria</button>
@@ -160,8 +164,13 @@ export default function Hero() {
                                 </div>
                             </nav>
 
+                            {/* Botón hamburguesa — solo visible en mobile. Empieza en opacity-0
+                                y se anima junto con el nav de escritorio (ver el timeline arriba).
+                                z-[70] para quedar SIEMPRE por encima del overlay del menú (z-[60]),
+                                si no, quedaba tapado y era imposible de volver a tocar para cerrar. */}
                             <button
-                                className="flex md:hidden relative z-20 text-white w-10 h-10 items-center justify-center"
+                                ref={menuBtnRef}
+                                className="flex md:hidden relative z-[70] text-white w-10 h-10 items-center justify-center opacity-0"
                                 onClick={() => setMenuAbierto(!menuAbierto)}
                                 aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
                             >
@@ -183,6 +192,7 @@ export default function Hero() {
                         </div>
                     </Container>
 
+                    {/* Overlay del menú mobile */}
                     <div
                         className={`fixed inset-0 z-[60] flex flex-col items-center justify-center gap-10 bg-surface/95 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
                             menuAbierto ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
@@ -212,6 +222,7 @@ export default function Hero() {
                         </div>
                     </div>
 
+                    {/* Botón "Descubre más": tamaños de texto/ícono reducidos en mobile */}
                     <div
                         ref={botonRef}
                         className="absolute bottom-6 sm:bottom-10 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-2 sm:gap-3 cursor-pointer text-accent transition-colors duration-300 group"

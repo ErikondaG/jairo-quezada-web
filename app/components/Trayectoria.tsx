@@ -211,14 +211,21 @@ export default function Trayectoria() {
     }
 
     return (
+        // !w-full fuerza el ancho completo por sobre el "width" en píxeles que
+        // GSAP calcula y fija en línea al pinnear la sección (ver ScrollTrigger
+        // más abajo). Necesita además la regla ".pin-spacer" en globals.css
+        // (te la recuerdo debajo del código).
         <section id="trayectoria" ref={seccionRef} className="!w-full bg-surface-alt border-t border-accent/10 relative">
             <Container>
                 <Reveal>
-                    <div className="min-h-screen flex items-center py-20 sm:py-32">
-                        <div className="flex flex-col w-full gap-6 sm:gap-8">
+                    <div className="min-h-screen flex items-center pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-20 md:pb-32">
+                        <div className="flex flex-col w-full gap-2 sm:gap-4">
                             <TituloSeccion>Trayectoria</TituloSeccion>
+
+                            {/* flex-col en mobile (foto arriba, línea de tiempo abajo);
+                                flex-row-reverse recién desde md, como estaba originalmente */}
                             <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-16 items-center w-full">
-                                <div className="w-full md:flex-[1.3] relative h-[40vh] sm:h-[50vh] md:h-[70vh] rounded-lg overflow-hidden">
+                                <div className="w-full md:flex-[1.3] relative h-[28vh] sm:h-[38vh] md:h-[55vh] rounded-lg overflow-hidden">
                                     {fotos.map((src, i) => (
                                         <div
                                             key={src}
@@ -230,7 +237,7 @@ export default function Trayectoria() {
                                         </div>
                                     ))}
                                 </div>
-                                <div ref={viewportRef} className="w-full md:flex-[1.7] relative h-[45vh] sm:h-[55vh] md:h-[70vh] overflow-hidden">
+                                <div ref={viewportRef} className="w-full md:flex-[1.7] relative h-[32vh] sm:h-[42vh] md:h-[55vh] overflow-hidden">
                                     <div ref={trackRef} className="absolute inset-x-0 top-0 will-change-transform z-10">
                                         <div
                                             className="absolute left-6 -translate-x-1/2 w-px bg-ink-muted/30 z-0"
@@ -246,15 +253,13 @@ export default function Trayectoria() {
                                             <div
                                                 key={`${logro.año}-${i}`}
                                                 ref={(el) => { itemsRef.current[i] = el; }}
-                                                className="flex items-center gap-4 sm:gap-6 pl-10 sm:pl-12"
+                                                className="relative flex items-center gap-4 sm:gap-6 pl-10 sm:pl-12"
                                                 style={{ height: ALTO_ITEM }}
                                             >
-                                                <div className="relative w-4 shrink-0" style={{ marginLeft: "-1.75rem" }}>
-                                                    <div
-                                                        ref={(el) => { puntosRef.current[i] = el; }}
-                                                        className="w-4 h-4 rounded-full bg-ink-muted relative z-20"
-                                                    />
-                                                </div>
+                                                <div
+                                                    ref={(el) => { puntosRef.current[i] = el; }}
+                                                    className="absolute left-4 top-[62px] w-4 h-4 rounded-full bg-ink-muted z-30"
+                                                />
                                                 <div className="min-w-0">
                                                     <p
                                                         ref={(el) => { añosRef.current[i] = el; }}
@@ -262,7 +267,7 @@ export default function Trayectoria() {
                                                     >
                                                         {logro.año}
                                                     </p>
-                                                    <p className="text-ink-muted text-sm sm:text-base md:text-lg leading-relaxed">{logro.texto}</p>
+                                                    <p className="text-ink-muted text-base sm:text-lg lg:text-xl leading-relaxed">{logro.texto}</p>
                                                 </div>
                                             </div>
                                         ))}
@@ -270,7 +275,7 @@ export default function Trayectoria() {
                                 </div>
                             </div>
 
-                            <div className="flex justify-center">
+                            <div className="flex justify-center mt-3 sm:mt-4">
                                 <button
                                     type="button"
                                     onClick={cambiarExpansion}
