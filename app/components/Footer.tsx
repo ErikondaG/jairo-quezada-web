@@ -81,7 +81,7 @@ export default function Footer() {
             className="bg-surface border-t border-ink/10"
         >
             <Container>
-                <div className="py-12 sm:py-16">
+                <div className="py-8 sm:py-12">
 
                     {/* Logo */}
                     <div className="flex flex-col items-center">
@@ -104,7 +104,7 @@ export default function Footer() {
                         {/* Redes sociales */}
                         <div
                             ref={redesRef}
-                            className="flex items-center gap-5 mt-8"
+                            className="flex items-center gap-5 mt-6"
                         >
 
                             {/* Instagram */}
@@ -165,7 +165,7 @@ export default function Footer() {
                         </div>
 
                         {/* Navegación */}
-                        <nav className="mt-10">
+                        <nav className="mt-7">
                             <ul
                                 ref={enlacesRef}
                                 className="flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-4"
@@ -173,7 +173,7 @@ export default function Footer() {
                                 {enlaces.map((enlace) => (
                                     <li key={enlace.id}>
                                         <button
-                                            onClick={() => irA(enlace.id)}
+                                            onClick={() => irA(enlace.id, enlace.id === "biografia" ? 0 : 90)}
                                             onMouseEnter={(e) =>
                                                 hoverEnlace(e.currentTarget)
                                             }
@@ -194,7 +194,7 @@ export default function Footer() {
                     {/* Separador */}
                     <div
                         ref={separadorRef}
-                        className="h-px bg-ink/10 my-12"
+                        className="h-px bg-ink/10 my-8"
                     />
 
                     {/* Copyright */}

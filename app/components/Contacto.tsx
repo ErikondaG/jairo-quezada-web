@@ -42,7 +42,7 @@ export default function Contacto() {
                                 src="/Jairo-con.jpg"
                                 alt="Jairo Quezada"
                                 fill
-                                className="object-cover object-bottom grayscale"
+                                className="object-cover object-[center_85%] grayscale"
                             />
                         </div>
 

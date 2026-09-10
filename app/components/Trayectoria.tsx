@@ -218,14 +218,14 @@ export default function Trayectoria() {
         <section id="trayectoria" ref={seccionRef} className="!w-full bg-surface-alt border-t border-accent/10 relative">
             <Container>
                 <Reveal>
-                    <div className="min-h-screen flex items-center pt-20 sm:pt-24 md:pt-32 pb-12 sm:pb-20 md:pb-32">
+                    <div className="min-h-screen flex items-center pt-20 sm:pt-24 md:pt-28 pb-12 sm:pb-20 md:pb-16">
                         <div className="flex flex-col w-full gap-2 sm:gap-4">
                             <TituloSeccion>Trayectoria</TituloSeccion>
 
                             {/* flex-col en mobile (foto arriba, línea de tiempo abajo);
                                 flex-row-reverse recién desde md, como estaba originalmente */}
                             <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-16 items-center w-full">
-                                <div className="w-full md:flex-[1.3] relative h-[28vh] sm:h-[38vh] md:h-[55vh] rounded-lg overflow-hidden">
+                                <div className="w-full md:flex-[1.3] relative h-[28vh] sm:h-[38vh] md:h-[48vh] rounded-lg overflow-hidden">
                                     {fotos.map((src, i) => (
                                         <div
                                             key={src}
@@ -237,7 +237,7 @@ export default function Trayectoria() {
                                         </div>
                                     ))}
                                 </div>
-                                <div ref={viewportRef} className="w-full md:flex-[1.7] relative h-[32vh] sm:h-[42vh] md:h-[55vh] overflow-hidden">
+                                <div ref={viewportRef} className="w-full md:flex-[1.7] relative h-[32vh] sm:h-[42vh] md:h-[48vh] overflow-hidden">
                                     <div ref={trackRef} className="absolute inset-x-0 top-0 will-change-transform z-10">
                                         <div
                                             className="absolute left-6 -translate-x-1/2 w-px bg-ink-muted/30 z-0"

@@ -29,28 +29,28 @@ export default function Hero() {
     }, [menuAbierto]);
 
     const navButtonClass =
-        "font-[family-name:var(--font-Playfair)] text-white text-xl lg:text-2xl hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 tracking-wide";
+        "font-[family-name:var(--font-Playfair)] text-white text-xl lg:text-2xl hover:text-accent hover:scale-105 transition-colors transition-transform duration-300 tracking-wide cursor-pointer";
 
     useGSAP(() => {
         gsap.from(cajaRef.current, { opacity: 0, duration: 1.2, ease: "power2.out" });
 
-        if (window.scrollY < 50) {
-            gsap.fromTo(
-                botonRef.current,
-                { opacity: 0, y: 20 },
-                { opacity: 1, y: 0, duration: 1.5, ease: "power2.out", delay: 0.8 }
-            );
+        // Este efecto ya NO controla opacity — eso queda 100% en manos del
+        // scroll-tied timeline de abajo, para que no compitan por la misma
+        // propiedad y generen comportamiento errático.
+        gsap.fromTo(
+            botonRef.current,
+            { y: 20 },
+            { y: 0, duration: 1.5, ease: "power2.out", delay: 0.8 }
+        );
 
-            gsap.to(botonRef.current, {
-                y: -8,
-                repeat: -1,
-                yoyo: true,
-                duration: 1.6,
-                ease: "sine.inOut",
-            });
-        } else {
-            gsap.set(botonRef.current, { opacity: 0 });
-        }
+        gsap.to(botonRef.current, {
+            y: -8,
+            repeat: -1,
+            yoyo: true,
+            duration: 1.6,
+            delay: 2.3,
+            ease: "sine.inOut",
+        });
     });
 
     useGSAP(() => {
@@ -68,6 +68,12 @@ export default function Hero() {
                 start: "top top",
                 end: "bottom top",
                 scrub: true,
+                snap: {
+                    snapTo: [0, 1],
+                    delay: 0.15, // espera a que el scroll por inercia se asiente antes de corregir
+                    duration: { min: 0.3, max: 0.6 },
+                    ease: "power1.inOut", // ease más suave que power2, se siente menos brusco
+                },
             },
         });
 
@@ -82,7 +88,7 @@ export default function Hero() {
         tl.to(menuBtnRef.current, { opacity: 1 }, 0);
         tl.to(panelRef.current, { opacity: 1, background: "rgba(255,255,255,0.25)", backdropFilter: "blur(10px)" }, 0);
         tl.to(hfotoRef.current, { opacity: 0 }, 0);
-        tl.to(botonRef.current, { opacity: 0 }, 0);
+        tl.fromTo(botonRef.current, { opacity: 1 }, { opacity: 0 }, 0);
     });
 
     function irA(id: string, offsetY = 90) {

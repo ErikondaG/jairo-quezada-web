@@ -15,9 +15,9 @@ function BotonPlay({ tamaño = "w-14 h-14 sm:w-16 sm:h-16" }: { tamaño?: string
     );
 }
 
-function VideoCard({ id, titulo, portada }: { id: string; titulo: string; portada?: string }) {
+function VideoCard({ id, titulo }: { id: string; titulo: string }) {
     const [reproduciendo, setReproduciendo] = useState(false);
-    const miniatura = portada ?? `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
+    const miniatura = `https://img.youtube.com/vi/${id}/hqdefault.jpg`;
 
     return (
         <div>
@@ -54,7 +54,7 @@ const categorias = [
         nombre: "Sencillos",
         videos: [
             { titulo: "Viaje Espacial", id: "H-PqrrTdJSw" },
-            { titulo: "Desnudos", id: "pY8ANO8jDQ4"},
+            { titulo: "Desnudos", id: "pY8ANO8jDQ4", portada: "/caratula-desnudos.png" },
             { titulo: "Ya me sané", id: "jFNBxR1MC18" },
             { titulo: "Duele", id: "hK-cf9qM7xs" },
             { titulo: "Cómo pensar en mañana", id: "lyQrgyuSd4k" },
@@ -114,7 +114,7 @@ export default function Musica() {
                     <TituloSeccion>
                         Música y Videos
                         </TituloSeccion>
-                    <p className="text-ink-muted text-base sm:text-lg mb-12">Lo más reciente</p>
+                    <p className="text-ink-muted text-base sm:text-lg mb-4">Ya disponible</p>
                 </Reveal>
                 <Reveal>
                     <div className="aspect-[3/1] rounded-lg overflow-hidden relative mb-12 sm:mb-20 bg-surface-alt">
@@ -164,7 +164,7 @@ export default function Musica() {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-10 sm:gap-y-8">
                     {categorias[categoriaActiva].videos.map((video, i) => (
                         <Reveal key={video.id} delay={i * 0.1}>
-                            <VideoCard id={video.id} titulo={video.titulo} portada={video.portada} />
+                            <VideoCard id={video.id} titulo={video.titulo} />
                         </Reveal>
                     ))}
                 </div>

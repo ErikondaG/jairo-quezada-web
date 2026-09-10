@@ -131,7 +131,7 @@ export default function Biografia() {
                             </div>
                         </div>
 
-                        <div className="w-full md:w-1/2 md:pt-60 lg:pt-68">
+                        <div className="w-full md:w-1/2 md:pt-[15vh] lg:pt-[18vh]">
                             <TituloSeccion>
                                 Sobre Jairo
                             </TituloSeccion>
