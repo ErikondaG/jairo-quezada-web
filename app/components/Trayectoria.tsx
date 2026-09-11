@@ -233,7 +233,13 @@ export default function Trayectoria() {
                                             className="absolute inset-0"
                                             style={{ opacity: i === 0 ? 1 : 0 }}
                                         >
-                                            <Image src={src} alt="Jairo Quezada" fill priority={i === 0} className="object-contain" />
+                                            <Image
+                                                src={src}
+                                                alt={`Jairo Quezada — ${logros[i].año}: ${logros[i].texto}`}
+                                                fill
+                                                priority={i === 0}
+                                                className="object-contain"
+                                            />
                                         </div>
                                     ))}
                                 </div>

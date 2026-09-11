@@ -7,7 +7,12 @@ import Container from "./Container";
 import Reveal from "./Reveal";
 import TituloSeccion from "./TituloSeccion";
 
-const fotos = ["/Jairo-bio.png", "/jairo-bio2.png", "/Jairo-bio3-newest.png", "/Jairo-bio4.png"];
+const fotos = [
+    { src: "/Jairo-bio.png", alt: "Jairo Quezada de pie, sonriendo, con blazer floral azul y dorado" },
+    { src: "/jairo-bio2.png", alt: "Jairo Quezada en pose relajada con blazer floral, apoyado sobre una pierna" },
+    { src: "/Jairo-bio3-newest.png", alt: "Jairo Quezada de perfil, con blazer negro de terciopelo y camisa roja" },
+    { src: "/Jairo-bio4.png", alt: "Retrato de cerca de Jairo Quezada sonriendo, con camisa roja y blazer negro" },
+];
 
 const parrafoIntro =
     "Jairo Quezada es un cantante, compositor y guitarrista chileno, nacido artísticamente en San Bernardo, cuya trayectoria reúne más de dos décadas de música, escenarios, festivales, televisión y competencias nacionales e internacionales.";
@@ -112,9 +117,9 @@ export default function Biografia() {
                             ></div>
 
                             <div className="absolute inset-0 overflow-hidden">
-                                {fotos.map((src, i) => (
+                                {fotos.map((foto, i) => (
                                     <div
-                                        key={i}
+                                        key={foto.src}
                                         ref={(el) => { fotosRef.current[i] = el; }}
                                         className="absolute inset-0"
                                         style={{
@@ -125,7 +130,7 @@ export default function Biografia() {
                                             WebkitMaskComposite: "source-in",
                                         }}
                                     >
-                                        <Image src={src} alt="Jairo Quezada" fill className="object-contain object-bottom" />
+                                        <Image src={foto.src} alt={foto.alt} fill className="object-contain object-bottom" />
                                     </div>
                                 ))}
                             </div>
