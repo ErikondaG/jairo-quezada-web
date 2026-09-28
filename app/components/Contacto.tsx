@@ -21,7 +21,7 @@ export default function Contacto() {
         setStatus("enviando");
 
         try {
-            const res = await fetch("https://formspree.io/f/xrpzlbeq", {
+            const res = await fetch("https://formspree.io/f/xppwkqlv", {
                 method: "POST",
                 headers: {
                     "Accept": "application/json",
