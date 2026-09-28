@@ -259,7 +259,7 @@ export default function Trayectoria() {
                                             <div
                                                 key={`${logro.año}-${i}`}
                                                 ref={(el) => { itemsRef.current[i] = el; }}
-                                                className="relative flex items-center gap-4 sm:gap-6 pl-10 sm:pl-12"
+                                                className="relative flex items-center pl-10 sm:pl-12"
                                                 style={{ height: ALTO_ITEM }}
                                             >
                                                 <div
@@ -285,10 +285,11 @@ export default function Trayectoria() {
                                 <button
                                     type="button"
                                     onClick={cambiarExpansion}
-                                    className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-ink-muted/40 text-ink transition-all duration-300 hover:border-accent hover:text-accent"
+                                    aria-expanded={expandida}
+                                    className="group inline-flex items-center gap-3 px-6 py-3 rounded-full border border-ink-muted/40 text-ink text-sm sm:text-base transition-all duration-300 hover:border-accent hover:text-accent"
                                 >
                                     <span>{expandida ? "Ver menos" : "Ver trayectoria completa"}</span>
-                                    <span className={`text-xl transition-transform duration-300 ${expandida ? "rotate-180" : ""}`}>
+                                    <span aria-hidden="true" className={`text-xl transition-transform duration-300 ${expandida ? "rotate-180" : ""}`}>
                                         ↓
                                     </span>
                                 </button>

@@ -5,13 +5,15 @@ import Container from "./Container";
 import Reveal from "./Reveal";
 import TituloSeccion from "./TituloSeccion";
 
+// span en vez de div: este componente vive dentro de un <button>, y un button
+// solo admite contenido "de texto" (span, svg...), no bloques como div.
 function BotonPlay({ tamaño = "w-14 h-14 sm:w-16 sm:h-16" }: { tamaño?: string }) {
     return (
-        <div className={`flex items-center justify-center ${tamaño} rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent transition-colors duration-300`}>
-            <svg width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-accent group-hover:text-surface transition-colors duration-300 ml-1">
+        <span className={`flex items-center justify-center ${tamaño} rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent group-focus-visible:bg-accent transition-colors duration-300`}>
+            <svg aria-hidden="true" width="24" height="24" viewBox="0 0 24 24" fill="currentColor" className="text-accent group-hover:text-surface group-focus-visible:text-surface transition-colors duration-300 ml-1">
                 <path d="M8 5v14l11-7z" />
             </svg>
-        </div>
+        </span>
     );
 }
 
@@ -31,14 +33,22 @@ function VideoCard({ id, titulo }: { id: string; titulo: string }) {
                         className="w-full h-full"
                     ></iframe>
                 ) : (
-                    <button onClick={() => setReproduciendo(true)} className="group relative w-full h-full">
+                    // -outline-offset-4: el botón ocupa todo el cuadro y su padre tiene
+                    // overflow-hidden, así que un contorno hacia afuera quedaría recortado
+                    // (invisible). Con offset negativo el anillo se dibuja hacia adentro.
+                    <button
+                        type="button"
+                        onClick={() => setReproduciendo(true)}
+                        aria-label={`Reproducir video: ${titulo}`}
+                        className="group relative w-full h-full focus-visible:-outline-offset-4"
+                    >
                         {/* scale-125: la mayoría de las miniaturas de YouTube traen franjas
                             negras horneadas en la propia imagen (no es algo que controlemos
                             nosotros) — el zoom las saca del cuadro visible */}
-                        <Image src={miniatura} alt={titulo} fill className="object-cover scale-125" />
-                        <div className="absolute inset-0 flex items-center justify-center bg-black/30">
+                        <Image src={miniatura} alt="" fill className="object-cover scale-125" />
+                        <span className="absolute inset-0 flex items-center justify-center bg-black/30">
                             <BotonPlay />
-                        </div>
+                        </span>
                     </button>
                 )}
             </div>
@@ -54,7 +64,7 @@ const categorias = [
         nombre: "Sencillos",
         videos: [
             { titulo: "Viaje Espacial", id: "H-PqrrTdJSw" },
-            { titulo: "Desnudos", id: "pY8ANO8jDQ4", portada: "/caratula-desnudos.png" },
+            { titulo: "Desnudos", id: "pY8ANO8jDQ4" },
             { titulo: "Ya me sané", id: "jFNBxR1MC18" },
             { titulo: "Duele", id: "hK-cf9qM7xs" },
             { titulo: "Cómo pensar en mañana", id: "lyQrgyuSd4k" },
@@ -127,11 +137,16 @@ export default function Musica() {
                                 className="w-full h-full"
                             ></iframe>
                         ) : (
-                            <button onClick={() => setReproduciendoDestacado(true)} className="group relative w-full h-full">
-                                <Image src="/banner-ya-me-sane.png" alt="Ya me sané" fill className="object-cover scale-[102%]" />
-                                <div className="absolute inset-0 flex items-center justify-center bg-black/20">
+                            <button
+                                type="button"
+                                onClick={() => setReproduciendoDestacado(true)}
+                                aria-label={`Reproducir video: ${videoDestacado.titulo}`}
+                                className="group relative w-full h-full focus-visible:-outline-offset-4"
+                            >
+                                <Image src="/banner-ya-me-sane.png" alt="" fill className="object-cover scale-[102%]" />
+                                <span className="absolute inset-0 flex items-center justify-center bg-black/20">
                                     <BotonPlay tamaño="w-16 h-16 sm:w-20 sm:h-20" />
-                                </div>
+                                </span>
                             </button>
                         )}
                     </div>
@@ -140,13 +155,17 @@ export default function Musica() {
                     {/* overflow-x-auto + whitespace-nowrap: en vez de que la fila de
                         pestañas se desborde de la pantalla (rompiendo TODO el sitio,
                         igual que pasaba con el nav del Hero), ahora se puede deslizar
-                        horizontalmente solo esta fila, de forma controlada */}
+                        horizontalmente solo esta fila, de forma controlada.
+                        Ojo: overflow-x-auto también recorta hacia arriba/abajo, por eso
+                        los botones usan -outline-offset-2 (anillo hacia adentro). */}
                     <div className="flex gap-6 sm:gap-8 border-b border-ink-muted/20 mb-12 overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {categorias.map((cat, i) => (
                             <button
+                                type="button"
                                 key={cat.nombre}
                                 onClick={() => setCategoriaActiva(i)}
-                                className={`pb-4 shrink-0 text-sm tracking-[0.15em] uppercase font-[family-name:var(--font-playfair)] transition-colors relative ${
+                                aria-pressed={categoriaActiva === i}
+                                className={`pb-4 shrink-0 text-sm tracking-[0.15em] uppercase font-[family-name:var(--font-playfair)] transition-colors relative focus-visible:-outline-offset-2 ${
                                     categoriaActiva === i ? "text-accent" : "text-ink-muted hover:text-ink"
                                 }`}
                             >

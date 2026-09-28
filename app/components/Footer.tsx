@@ -87,6 +87,7 @@ export default function Footer() {
                     <div className="flex flex-col items-center">
 
                         <button
+                            type="button"
                             ref={logoRef}
                             onClick={() => irA("biografia", 0)}
                             aria-label="Ir a Biografía"
@@ -97,11 +98,13 @@ export default function Footer() {
                                 alt="Logo Jairo Quezada"
                                 width={180}
                                 height={100}
-                                className="w-auto h-12 sm:h-16 object-contain transition-transform duration-500 group-hover:scale-105"
+                                className="w-auto h-12 sm:h-16 object-contain transition-transform duration-500 group-hover:scale-105 group-focus-visible:scale-105"
                             />
                         </button>
 
-                        {/* Redes sociales */}
+                        {/* Redes sociales
+                            (focus-visible:text-accent: mismo cambio de color que en hover,
+                            para que quien navega con teclado reciba la misma respuesta visual) */}
                         <div
                             ref={redesRef}
                             className="flex items-center gap-5 mt-6"
@@ -113,9 +116,10 @@ export default function Footer() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Instagram"
-                                className="text-ink-muted hover:text-accent transition-colors duration-300"
+                                className="text-ink-muted hover:text-accent focus-visible:text-accent transition-colors duration-300"
                             >
                                 <svg
+                                    aria-hidden="true"
                                     width="20"
                                     height="20" 
                                     viewBox="0 0 24 24"
@@ -132,9 +136,10 @@ export default function Footer() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="Facebook"
-                                className="text-ink-muted hover:text-accent transition-colors duration-300"
+                                className="text-ink-muted hover:text-accent focus-visible:text-accent transition-colors duration-300"
                             >
                                 <svg
+                                    aria-hidden="true"
                                     width="20"
                                     height="20"
                                     viewBox="0 0 24 24"
@@ -150,9 +155,10 @@ export default function Footer() {
                                 target="_blank"
                                 rel="noopener noreferrer"
                                 aria-label="YouTube"
-                                className="text-ink-muted hover:text-accent transition-colors duration-300"
+                                className="text-ink-muted hover:text-accent focus-visible:text-accent transition-colors duration-300"
                             >
                                 <svg
+                                    aria-hidden="true"
                                     width="22"
                                     height="22"
                                     viewBox="0 0 24 24"
@@ -164,8 +170,9 @@ export default function Footer() {
 
                         </div>
 
-                        {/* Navegación */}
-                        <nav className="mt-7">
+                        {/* Navegación (aria-label: la página tiene dos <nav>, el del Hero y este;
+                            etiquetarlos permite a un lector de pantalla distinguirlos) */}
+                        <nav aria-label="Navegación del pie de página" className="mt-7">
                             <ul
                                 ref={enlacesRef}
                                 className="flex flex-wrap justify-center gap-x-6 sm:gap-x-10 gap-y-4"
@@ -173,6 +180,7 @@ export default function Footer() {
                                 {enlaces.map((enlace) => (
                                     <li key={enlace.id}>
                                         <button
+                                            type="button"
                                             onClick={() => irA(enlace.id, enlace.id === "biografia" ? 0 : 90)}
                                             onMouseEnter={(e) =>
                                                 hoverEnlace(e.currentTarget)
@@ -180,7 +188,7 @@ export default function Footer() {
                                             onMouseLeave={(e) =>
                                                 leaveEnlace(e.currentTarget)
                                             }
-                                            className="inline-block text-ink-muted hover:text-accent text-sm sm:text-base tracking-wide transition-colors duration-300 cursor-pointer"
+                                            className="inline-block text-ink-muted hover:text-accent focus-visible:text-accent text-sm sm:text-base tracking-wide transition-colors duration-300 cursor-pointer"
                                         >
                                             {enlace.nombre}
                                         </button>

@@ -1,5 +1,5 @@
 "use client"
-import { useRef, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
 import Image from "next/image";
@@ -33,11 +33,24 @@ export default function Biografia() {
     const fotosRef = useRef<(HTMLDivElement | null)[]>([]);
     const brilloRef = useRef<HTMLDivElement>(null);
     const extraRef = useRef<(HTMLParagraphElement | null)[]>([]);
+    const cierreRef = useRef<ReturnType<typeof setTimeout> | null>(null);
     const [expandida, setExpandida] = useState(false);
     const [mostrarCompleto, setMostrarCompleto] = useState(false);
 
+    // Si el componente se desmonta con un cierre pendiente, cancelamos el timeout
+    // para no intentar actualizar el estado de un componente que ya no existe.
+    useEffect(() => {
+        return () => {
+            if (cierreRef.current) clearTimeout(cierreRef.current);
+        };
+    }, []);
+
     function alternarBiografia() {
         if (!expandida) {
+            // Si veníamos de un cierre en curso (click rápido), cancelamos su timeout:
+            // si no, a los 500ms volvería a poner el texto corto con el panel abierto.
+            if (cierreRef.current) clearTimeout(cierreRef.current);
+
             // Abrir: mostramos el panel largo ya mismo, para que el contenedor
             // tenga algo "grande" que revelar mientras crece.
             setMostrarCompleto(true);
@@ -48,41 +61,62 @@ export default function Biografia() {
             // al texto corto. Si lo hiciéramos al mismo tiempo, el contenido chico
             // aparecería de golpe y la animación no se vería.
             setExpandida(false);
-            setTimeout(() => setMostrarCompleto(false), 500);
+            cierreRef.current = setTimeout(() => setMostrarCompleto(false), 500);
         }
     }
 
     useGSAP(() => {
-        const tl = gsap.timeline({ repeat: -1 });
+        // Carrusel de fotos. "conDeslizamiento" controla el desplazamiento lateral de
+        // 80px que hace cada foto mientras se muestra: ese es el movimiento que puede
+        // marear. El fundido entre fotos se mantiene en ambos casos, y como la duración
+        // de cada foto (6s) la define el fundido de salida, el ritmo no cambia.
+        function armarCarrusel(conDeslizamiento: boolean) {
+            const tl = gsap.timeline({ repeat: -1 });
 
-        fotos.forEach((_, i) => {
-            const duracionTotal = 6;
-            const etiqueta = "foto" + i;
+            fotos.forEach((_, i) => {
+                const duracionTotal = 6;
+                const etiqueta = "foto" + i;
 
-            tl.addLabel(etiqueta);
-            tl.set(fotosRef.current[i], { opacity: 0, x: 0 }, etiqueta);
-            tl.to(fotosRef.current[i], { x: -80, duration: duracionTotal, ease: "none" }, etiqueta);
-            tl.to(fotosRef.current[i], { opacity: 1, duration: 1 }, etiqueta);
-            tl.to(fotosRef.current[i], { opacity: 0, duration: 1 }, `${etiqueta}+=${duracionTotal - 1}`);
+                tl.addLabel(etiqueta);
+                tl.set(fotosRef.current[i], { opacity: 0, x: 0 }, etiqueta);
+                if (conDeslizamiento) {
+                    tl.to(fotosRef.current[i], { x: -80, duration: duracionTotal, ease: "none" }, etiqueta);
+                }
+                tl.to(fotosRef.current[i], { opacity: 1, duration: 1 }, etiqueta);
+                tl.to(fotosRef.current[i], { opacity: 0, duration: 1 }, `${etiqueta}+=${duracionTotal - 1}`);
+            });
+        }
+
+        const mm = gsap.matchMedia();
+
+        // Movimiento normal: todo como estaba (deslizamiento + brillo que pulsa y se mueve)
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            armarCarrusel(true);
+
+            gsap.set(brilloRef.current, { opacity: 0.4 });
+
+            gsap.to(brilloRef.current, {
+                opacity: 0.7,
+                duration: 2.5,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            });
+
+            gsap.to(brilloRef.current, {
+                scale: 1.15,
+                x: 15,
+                duration: 4,
+                ease: "sine.inOut",
+                repeat: -1,
+                yoyo: true,
+            });
         });
 
-        gsap.set(brilloRef.current, { opacity: 0.4 });
-
-        gsap.to(brilloRef.current, {
-            opacity: 0.7,
-            duration: 2.5,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
-        });
-
-        gsap.to(brilloRef.current, {
-            scale: 1.15,
-            x: 15,
-            duration: 4,
-            ease: "sine.inOut",
-            repeat: -1,
-            yoyo: true,
+        // Movimiento reducido: las fotos solo hacen fundido y el brillo queda fijo
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+            armarCarrusel(false);
+            gsap.set(brilloRef.current, { opacity: 0.55 });
         });
     }, []);
 
@@ -141,7 +175,9 @@ export default function Biografia() {
                                 Sobre Jairo
                             </TituloSeccion>
 
+                            {/* id: es el elemento que controla el botón de abajo (aria-controls) */}
                             <div
+                                id="biografia-texto"
                                 className={`max-w-xl lg:max-w-2xl overflow-hidden transition-[max-height] duration-500 ease-in-out ${
                                     expandida ? "max-h-56 sm:max-h-64 md:max-h-72" : "max-h-32 sm:max-h-36 md:max-h-40"
                                 }`}
@@ -149,8 +185,16 @@ export default function Biografia() {
                                 {!mostrarCompleto ? (
                                     <p className={textoParrafo}>{parrafoIntro}</p>
                                 ) : (
+                                    // tabIndex={0} + role="region": un div con scroll no recibe foco por
+                                    // defecto, así que quien navega con teclado no podría leer el texto
+                                    // que queda abajo. Con esto puede enfocarlo y scrollear con las flechas.
+                                    // -outline-offset-2: el padre tiene overflow-hidden, así que un
+                                    // contorno hacia afuera quedaría recortado; lo dibujamos hacia adentro.
                                     <div
-                                        className="h-56 sm:h-64 md:h-72 overflow-y-auto pr-2 pt-5 sm:pt-6"
+                                        tabIndex={0}
+                                        role="region"
+                                        aria-label="Biografía completa de Jairo Quezada"
+                                        className="h-56 sm:h-64 md:h-72 overflow-y-auto pr-2 pt-5 sm:pt-6 focus-visible:-outline-offset-2"
                                         style={{
                                             maskImage: "linear-gradient(to bottom, transparent, black 6%, black 88%, transparent)",
                                             WebkitMaskImage: "linear-gradient(to bottom, transparent, black 6%, black 88%, transparent)",
@@ -172,10 +216,12 @@ export default function Biografia() {
                             <button
                                 type="button"
                                 onClick={alternarBiografia}
+                                aria-expanded={expandida}
+                                aria-controls="biografia-texto"
                                 className="group inline-flex items-center justify-center gap-3 w-60 sm:w-64 px-6 py-3 mt-2 rounded-full border border-ink-muted/40 text-ink text-sm sm:text-base transition-all duration-300 hover:border-accent hover:text-accent"
                             >
                                 <span>{expandida ? "Ver menos" : "Ver biografía completa"}</span>
-                                <span className={`text-xl transition-transform duration-300 ${expandida ? "rotate-180" : ""}`}>
+                                <span aria-hidden="true" className={`text-xl transition-transform duration-300 ${expandida ? "rotate-180" : ""}`}>
                                     ↓
                                 </span>
                             </button>

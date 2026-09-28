@@ -10,17 +10,35 @@ export default function Reveal({ children, delay = 0 }: { children: ReactNode; d
     const ref = useRef<HTMLDivElement>(null);
 
     useGSAP(() => {
-        gsap.from(ref.current, {
-            opacity: 0,
-            y: 40,
-            duration: 0.8,
-            delay,
-            ease: "power2.out",
-            scrollTrigger: {
-                trigger: ref.current,
-                start: "top 80%",
-                toggleActions: "play none none none",
-            },
+        const mm = gsap.matchMedia();
+
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.from(ref.current, {
+                opacity: 0,
+                y: 40,
+                duration: 0.8,
+                delay,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ref.current,
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+            });
+        });
+
+        mm.add("(prefers-reduced-motion: reduce)", () => {
+            gsap.from(ref.current, {
+                opacity: 0,
+                duration: 0.8,
+                delay,
+                ease: "power2.out",
+                scrollTrigger: {
+                    trigger: ref.current,
+                    start: "top 80%",
+                    toggleActions: "play none none none",
+                },
+            });
         });
     });
 

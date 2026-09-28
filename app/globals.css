@@ -28,6 +28,17 @@ body {
   font-family: var(--font-sans), Arial, Helvetica, sans-serif;
 }
 
+/* Anillo de foco visible al navegar con teclado (no aparece al hacer clic con el mouse).
+   Va dentro de @layer base para que las clases de Tailwind (como focus-visible:outline-none
+   en el botón "Descubre más") puedan sobreescribirlo. Fuera de una capa, esta regla
+   ganaría siempre sobre las utilidades. */
+@layer base {
+  :focus-visible {
+    outline: 2px solid var(--color-accent);
+    outline-offset: 3px;
+  }
+}
+
 .pin-spacer {
   width: 100% !important;
 }

@@ -17,7 +17,8 @@ export default function Hero() {
     const pinRef = useRef<HTMLDivElement>(null);
     const spacerRef = useRef<HTMLDivElement>(null);
     const hfotoRef = useRef<HTMLDivElement>(null);
-    const botonRef = useRef<HTMLDivElement>(null);
+    // Ahora es un <button> real, así que el ref cambia de HTMLDivElement a HTMLButtonElement
+    const botonRef = useRef<HTMLButtonElement>(null);
     const menuBtnRef = useRef<HTMLButtonElement>(null);
 
     const [menuAbierto, setMenuAbierto] = useState(false);
@@ -43,13 +44,19 @@ export default function Hero() {
             { y: 0, duration: 1.5, ease: "power2.out", delay: 0.8 }
         );
 
-        gsap.to(botonRef.current, {
-            y: -8,
-            repeat: -1,
-            yoyo: true,
-            duration: 1.6,
-            delay: 2.3,
-            ease: "sine.inOut",
+        // Rebote infinito: es movimiento que ocurre solo, sin que la persona haga nada,
+        // así que lo frenamos si su sistema tiene activado "Reducir movimiento".
+        // matchMedia lo arma y lo desarma solo si esa preferencia cambia en vivo.
+        const mm = gsap.matchMedia();
+        mm.add("(prefers-reduced-motion: no-preference)", () => {
+            gsap.to(botonRef.current, {
+                y: -8,
+                repeat: -1,
+                yoyo: true,
+                duration: 1.6,
+                delay: 2.3,
+                ease: "sine.inOut",
+            });
         });
     });
 
@@ -85,10 +92,21 @@ export default function Hero() {
         tl.to(pinRef.current, { height: altoCompacto }, 0);
         tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
+        // El nav y la hamburguesa arrancan con "invisible" (visibility: hidden) para que
+        // Tab no pase por elementos que no se ven. Al empezar el scroll los revelamos.
+        tl.set(navRef.current, { visibility: "visible", immediateRender: false }, 0.05);
         tl.to(menuBtnRef.current, { opacity: 1 }, 0);
+        tl.set(menuBtnRef.current, { visibility: "visible", immediateRender: false }, 0.05);
         tl.to(panelRef.current, { opacity: 1, background: "rgba(255,255,255,0.25)", backdropFilter: "blur(10px)" }, 0);
         tl.to(hfotoRef.current, { opacity: 0 }, 0);
         tl.fromTo(botonRef.current, { opacity: 1 }, { opacity: 0 }, 0);
+
+        // Cuando el fade ya casi terminó (90% del scroll del spacer), sacamos el botón
+        // del orden de Tab y de los lectores de pantalla con visibility: hidden.
+        // immediateRender: false evita que se oculte apenas se crea el timeline:
+        // queremos que se oculte recién cuando el scroll llegue a ese punto,
+        // y que se revierta solo al volver hacia arriba (por el scrub).
+        tl.set(botonRef.current, { visibility: "hidden", immediateRender: false }, 0.9);
     });
 
     function irA(id: string, offsetY = 90) {
@@ -112,7 +130,7 @@ export default function Hero() {
                     <div ref={hfotoRef} className="absolute inset-0">
                         <Image
                             src="/Jairo-hero-new.jpg"
-                            alt="Jairo quezada sentado"
+                            alt="Jairo Quezada sentado"
                             fill
                             priority
                             className="object-cover object-[15%_35%] sm:object-[25%_35%]"
@@ -145,7 +163,7 @@ export default function Hero() {
                             </div>
 
                             {/* Nav de escritorio — oculto en mobile */}
-                            <nav ref={navRef} className="hidden md:flex items-center gap-8 lg:gap-15 opacity-0">
+                            <nav ref={navRef} className="hidden md:flex items-center gap-8 lg:gap-15 opacity-0 invisible">
                                 <button onClick={() => irA("biografia", 0)} className={navButtonClass}>Biografía</button>
                                 <button onClick={() => irA("trayectoria")} className={navButtonClass}>Trayectoria</button>
                                 <button onClick={() => irA("musica")} className={navButtonClass}>Música</button>
@@ -170,13 +188,10 @@ export default function Hero() {
                                 </div>
                             </nav>
 
-                            {/* Botón hamburguesa — solo visible en mobile. Empieza en opacity-0
-                                y se anima junto con el nav de escritorio (ver el timeline arriba).
-                                z-[70] para quedar SIEMPRE por encima del overlay del menú (z-[60]),
-                                si no, quedaba tapado y era imposible de volver a tocar para cerrar. */}
+
                             <button
                                 ref={menuBtnRef}
-                                className="flex md:hidden relative z-[70] text-white w-10 h-10 items-center justify-center opacity-0"
+                                className="flex md:hidden relative z-[70] text-white w-10 h-10 items-center justify-center opacity-0 invisible"
                                 onClick={() => setMenuAbierto(!menuAbierto)}
                                 aria-label={menuAbierto ? "Cerrar menú" : "Abrir menú"}
                             >
@@ -200,8 +215,8 @@ export default function Hero() {
 
                     {/* Overlay del menú mobile */}
                     <div
-                        className={`fixed inset-0 z-[60] flex flex-col items-center justify-center gap-10 bg-surface/95 backdrop-blur-sm transition-opacity duration-300 md:hidden ${
-                            menuAbierto ? "opacity-100 pointer-events-auto" : "opacity-0 pointer-events-none"
+                        className={`fixed inset-0 z-[60] flex flex-col items-center justify-center gap-10 bg-surface/95 backdrop-blur-sm transition-[opacity,visibility] duration-300 md:hidden ${
+                            menuAbierto ? "opacity-100 pointer-events-auto visible" : "opacity-0 pointer-events-none invisible"
                         }`}
                     >
                         <button onClick={() => irA("biografia", 0)} className={navButtonClass}>Biografía</button>
@@ -228,18 +243,21 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Botón "Descubre más": tamaños de texto/ícono reducidos en mobile */}
-                    <div
+                    {/* Botón "Descubre más": ahora es un <button> real (alcanzable por teclado).
+                        Adentro solo van <span> y <svg> (un <div> no es contenido válido dentro de un button). */}
+                    <button
+                        type="button"
                         ref={botonRef}
-                        className="absolute bottom-6 sm:bottom-10 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-2 sm:gap-3 cursor-pointer text-accent transition-colors duration-300 group"
                         onClick={() => irA("biografia", 0)}
+                        className="absolute bottom-6 sm:bottom-10 inset-x-0 mx-auto w-fit z-20 flex flex-col items-center gap-2 sm:gap-3 cursor-pointer text-accent transition-colors duration-300 group focus-visible:outline-none"
                     >
                         <span className="text-sm sm:text-xl tracking-[0.2em] uppercase font-[family-name:var(--font-Playfair)] font-bold text-center px-4">
                             Descubre más
                         </span>
 
-                        <div className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent transition-colors duration-300">
+                        <span className="flex items-center justify-center w-12 h-12 sm:w-16 sm:h-16 rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent group-focus-visible:bg-accent group-focus-visible:ring-2 group-focus-visible:ring-accent group-focus-visible:ring-offset-2 transition-colors duration-300">
                             <svg
+                                aria-hidden="true"
                                 width="24"
                                 height="24"
                                 viewBox="0 0 24 24"
@@ -248,13 +266,13 @@ export default function Hero() {
                                 strokeWidth="1.4"
                                 strokeLinecap="round"
                                 strokeLinejoin="round"
-                                className="text-accent group-hover:text-surface transition-colors duration-300 sm:w-7 sm:h-7"
+                                className="text-accent group-hover:text-surface group-focus-visible:text-surface transition-colors duration-300 sm:w-7 sm:h-7"
                             >
                                 <path d="M12 5v14" />
                                 <path d="M5 12l7 7 7-7" />
                             </svg>
-                        </div>
-                    </div>
+                        </span>
+                    </button>
                 </div>
             </div>
         </>
