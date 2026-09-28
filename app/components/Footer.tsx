@@ -102,9 +102,6 @@ export default function Footer() {
                             />
                         </button>
 
-                        {/* Redes sociales
-                            (focus-visible:text-accent: mismo cambio de color que en hover,
-                            para que quien navega con teclado reciba la misma respuesta visual) */}
                         <div
                             ref={redesRef}
                             className="flex items-center gap-5 mt-6"
@@ -170,8 +167,6 @@ export default function Footer() {
 
                         </div>
 
-                        {/* Navegación (aria-label: la página tiene dos <nav>, el del Hero y este;
-                            etiquetarlos permite a un lector de pantalla distinguirlos) */}
                         <nav aria-label="Navegación del pie de página" className="mt-7">
                             <ul
                                 ref={enlacesRef}

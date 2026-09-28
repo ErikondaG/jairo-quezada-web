@@ -17,13 +17,11 @@ export default function Hero() {
     const pinRef = useRef<HTMLDivElement>(null);
     const spacerRef = useRef<HTMLDivElement>(null);
     const hfotoRef = useRef<HTMLDivElement>(null);
-    // Ahora es un <button> real, así que el ref cambia de HTMLDivElement a HTMLButtonElement
     const botonRef = useRef<HTMLButtonElement>(null);
     const menuBtnRef = useRef<HTMLButtonElement>(null);
 
     const [menuAbierto, setMenuAbierto] = useState(false);
 
-    // Bloquea el scroll del body mientras el menú mobile está abierto
     useEffect(() => {
         document.body.style.overflow = menuAbierto ? "hidden" : "";
         return () => { document.body.style.overflow = ""; };
@@ -35,18 +33,14 @@ export default function Hero() {
     useGSAP(() => {
         gsap.from(cajaRef.current, { opacity: 0, duration: 1.2, ease: "power2.out" });
 
-        // Este efecto ya NO controla opacity — eso queda 100% en manos del
-        // scroll-tied timeline de abajo, para que no compitan por la misma
-        // propiedad y generen comportamiento errático.
+
         gsap.fromTo(
             botonRef.current,
             { y: 20 },
             { y: 0, duration: 1.5, ease: "power2.out", delay: 0.8 }
         );
 
-        // Rebote infinito: es movimiento que ocurre solo, sin que la persona haga nada,
-        // así que lo frenamos si su sistema tiene activado "Reducir movimiento".
-        // matchMedia lo arma y lo desarma solo si esa preferencia cambia en vivo.
+
         const mm = gsap.matchMedia();
         mm.add("(prefers-reduced-motion: no-preference)", () => {
             gsap.to(botonRef.current, {
@@ -77,23 +71,18 @@ export default function Hero() {
                 scrub: true,
                 snap: {
                     snapTo: [0, 1],
-                    delay: 0.15, // espera a que el scroll por inercia se asiente antes de corregir
+                    delay: 0.15, 
                     duration: { min: 0.3, max: 0.6 },
-                    ease: "power1.inOut", // ease más suave que power2, se siente menos brusco
+                    ease: "power1.inOut", 
                 },
             },
         });
 
-        // En mobile, 100px de navbar compacta se siente muy alto en proporción
-        // a la pantalla; en desktop es apenas perceptible. Achicamos el target
-        // según el ancho de pantalla al momento de armar la animación.
         const altoCompacto = window.innerWidth < 640 ? "64px" : "100px";
 
         tl.to(pinRef.current, { height: altoCompacto }, 0);
         tl.to(logoRef.current, { x: 0, scale: 0.3, transformOrigin: "left center" }, 0);
         tl.to(navRef.current, { opacity: 1 }, 0);
-        // El nav y la hamburguesa arrancan con "invisible" (visibility: hidden) para que
-        // Tab no pase por elementos que no se ven. Al empezar el scroll los revelamos.
         tl.set(navRef.current, { visibility: "visible", immediateRender: false }, 0.05);
         tl.to(menuBtnRef.current, { opacity: 1 }, 0);
         tl.set(menuBtnRef.current, { visibility: "visible", immediateRender: false }, 0.05);
@@ -101,11 +90,6 @@ export default function Hero() {
         tl.to(hfotoRef.current, { opacity: 0 }, 0);
         tl.fromTo(botonRef.current, { opacity: 1 }, { opacity: 0 }, 0);
 
-        // Cuando el fade ya casi terminó (90% del scroll del spacer), sacamos el botón
-        // del orden de Tab y de los lectores de pantalla con visibility: hidden.
-        // immediateRender: false evita que se oculte apenas se crea el timeline:
-        // queremos que se oculte recién cuando el scroll llegue a ese punto,
-        // y que se revierta solo al volver hacia arriba (por el scrub).
         tl.set(botonRef.current, { visibility: "hidden", immediateRender: false }, 0.9);
     });
 
@@ -120,8 +104,6 @@ export default function Hero() {
 
     return (
         <>
-            {/* dvh en vez de vh: se ajusta al alto real visible en mobile,
-                no al valor teórico que puede incluir la barra de direcciones */}
             <div ref={spacerRef} className="h-[100dvh]"></div>
 
             <div ref={pinRef} className="fixed top-0 left-0 w-full h-[100dvh] z-50 overflow-hidden">
@@ -149,8 +131,7 @@ export default function Hero() {
 
                     <Container>
                         <div className="flex items-center justify-between relative z-[70]">
-                            {/* Logo: ancho responsive con h-auto para mantener proporción,
-                                en vez del tamaño fijo de 500px que desbordaba en mobile */}
+                            {/* Logo: */}
                             <div ref={logoRef} className="relative z-10 opacity-0 w-40 sm:w-48 md:w-56 lg:w-64">
                                 <Image
                                     src="/Logo-blanco.png"
@@ -243,8 +224,7 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Botón "Descubre más": ahora es un <button> real (alcanzable por teclado).
-                        Adentro solo van <span> y <svg> (un <div> no es contenido válido dentro de un button). */}
+                    {/* Botón "Descubre más" */}
                     <button
                         type="button"
                         ref={botonRef}

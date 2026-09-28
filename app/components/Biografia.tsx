@@ -37,8 +37,6 @@ export default function Biografia() {
     const [expandida, setExpandida] = useState(false);
     const [mostrarCompleto, setMostrarCompleto] = useState(false);
 
-    // Si el componente se desmonta con un cierre pendiente, cancelamos el timeout
-    // para no intentar actualizar el estado de un componente que ya no existe.
     useEffect(() => {
         return () => {
             if (cierreRef.current) clearTimeout(cierreRef.current);
@@ -47,29 +45,18 @@ export default function Biografia() {
 
     function alternarBiografia() {
         if (!expandida) {
-            // Si veníamos de un cierre en curso (click rápido), cancelamos su timeout:
-            // si no, a los 500ms volvería a poner el texto corto con el panel abierto.
             if (cierreRef.current) clearTimeout(cierreRef.current);
 
-            // Abrir: mostramos el panel largo ya mismo, para que el contenedor
-            // tenga algo "grande" que revelar mientras crece.
             setMostrarCompleto(true);
             setExpandida(true);
         } else {
-            // Cerrar: primero encogemos el contenedor; recién cuando esa animación
-            // termina (500ms, mismo tiempo que la transición de max-height) volvemos
-            // al texto corto. Si lo hiciéramos al mismo tiempo, el contenido chico
-            // aparecería de golpe y la animación no se vería.
             setExpandida(false);
             cierreRef.current = setTimeout(() => setMostrarCompleto(false), 500);
         }
     }
 
     useGSAP(() => {
-        // Carrusel de fotos. "conDeslizamiento" controla el desplazamiento lateral de
-        // 80px que hace cada foto mientras se muestra: ese es el movimiento que puede
-        // marear. El fundido entre fotos se mantiene en ambos casos, y como la duración
-        // de cada foto (6s) la define el fundido de salida, el ritmo no cambia.
+        // Carrusel de fotos. 
         function armarCarrusel(conDeslizamiento: boolean) {
             const tl = gsap.timeline({ repeat: -1 });
 
@@ -89,7 +76,6 @@ export default function Biografia() {
 
         const mm = gsap.matchMedia();
 
-        // Movimiento normal: todo como estaba (deslizamiento + brillo que pulsa y se mueve)
         mm.add("(prefers-reduced-motion: no-preference)", () => {
             armarCarrusel(true);
 
@@ -113,14 +99,12 @@ export default function Biografia() {
             });
         });
 
-        // Movimiento reducido: las fotos solo hacen fundido y el brillo queda fijo
         mm.add("(prefers-reduced-motion: reduce)", () => {
             armarCarrusel(false);
             gsap.set(brilloRef.current, { opacity: 0.55 });
         });
     }, []);
 
-    // Fade-in escalonado de los párrafos nuevos, cada vez que se expande
     useGSAP(() => {
         if (expandida) {
             gsap.from(extraRef.current.filter(Boolean), {
@@ -175,7 +159,6 @@ export default function Biografia() {
                                 Sobre Jairo
                             </TituloSeccion>
 
-                            {/* id: es el elemento que controla el botón de abajo (aria-controls) */}
                             <div
                                 id="biografia-texto"
                                 className={`max-w-xl lg:max-w-2xl overflow-hidden transition-[max-height] duration-500 ease-in-out ${
@@ -185,11 +168,6 @@ export default function Biografia() {
                                 {!mostrarCompleto ? (
                                     <p className={textoParrafo}>{parrafoIntro}</p>
                                 ) : (
-                                    // tabIndex={0} + role="region": un div con scroll no recibe foco por
-                                    // defecto, así que quien navega con teclado no podría leer el texto
-                                    // que queda abajo. Con esto puede enfocarlo y scrollear con las flechas.
-                                    // -outline-offset-2: el padre tiene overflow-hidden, así que un
-                                    // contorno hacia afuera quedaría recortado; lo dibujamos hacia adentro.
                                     <div
                                         tabIndex={0}
                                         role="region"

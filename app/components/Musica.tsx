@@ -5,8 +5,6 @@ import Container from "./Container";
 import Reveal from "./Reveal";
 import TituloSeccion from "./TituloSeccion";
 
-// span en vez de div: este componente vive dentro de un <button>, y un button
-// solo admite contenido "de texto" (span, svg...), no bloques como div.
 function BotonPlay({ tamaño = "w-14 h-14 sm:w-16 sm:h-16" }: { tamaño?: string }) {
     return (
         <span className={`flex items-center justify-center ${tamaño} rounded-full border-2 border-accent bg-surface/50 group-hover:bg-accent group-focus-visible:bg-accent transition-colors duration-300`}>
@@ -33,18 +31,12 @@ function VideoCard({ id, titulo }: { id: string; titulo: string }) {
                         className="w-full h-full"
                     ></iframe>
                 ) : (
-                    // -outline-offset-4: el botón ocupa todo el cuadro y su padre tiene
-                    // overflow-hidden, así que un contorno hacia afuera quedaría recortado
-                    // (invisible). Con offset negativo el anillo se dibuja hacia adentro.
                     <button
                         type="button"
                         onClick={() => setReproduciendo(true)}
                         aria-label={`Reproducir video: ${titulo}`}
                         className="group relative w-full h-full focus-visible:-outline-offset-4"
                     >
-                        {/* scale-125: la mayoría de las miniaturas de YouTube traen franjas
-                            negras horneadas en la propia imagen (no es algo que controlemos
-                            nosotros) — el zoom las saca del cuadro visible */}
                         <Image src={miniatura} alt="" fill className="object-cover scale-125" />
                         <span className="absolute inset-0 flex items-center justify-center bg-black/30">
                             <BotonPlay />
@@ -152,12 +144,6 @@ export default function Musica() {
                     </div>
                 </Reveal>
                 <Reveal>
-                    {/* overflow-x-auto + whitespace-nowrap: en vez de que la fila de
-                        pestañas se desborde de la pantalla (rompiendo TODO el sitio,
-                        igual que pasaba con el nav del Hero), ahora se puede deslizar
-                        horizontalmente solo esta fila, de forma controlada.
-                        Ojo: overflow-x-auto también recorta hacia arriba/abajo, por eso
-                        los botones usan -outline-offset-2 (anillo hacia adentro). */}
                     <div className="flex gap-6 sm:gap-8 border-b border-ink-muted/20 mb-12 overflow-x-auto whitespace-nowrap [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
                         {categorias.map((cat, i) => (
                             <button
@@ -178,8 +164,6 @@ export default function Musica() {
                     </div>
                 </Reveal>
 
-                {/* 1 columna en mobile, 2 desde sm, 3 desde lg — antes eran
-                    siempre 3, aplastadas en pantallas chicas */}
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-x-6 sm:gap-x-8 gap-y-10 sm:gap-y-8">
                     {categorias[categoriaActiva].videos.map((video, i) => (
                         <Reveal key={video.id} delay={i * 0.1}>

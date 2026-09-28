@@ -211,10 +211,6 @@ export default function Trayectoria() {
     }
 
     return (
-        // !w-full fuerza el ancho completo por sobre el "width" en píxeles que
-        // GSAP calcula y fija en línea al pinnear la sección (ver ScrollTrigger
-        // más abajo). Necesita además la regla ".pin-spacer" en globals.css
-        // (te la recuerdo debajo del código).
         <section id="trayectoria" ref={seccionRef} className="!w-full bg-surface-alt border-t border-accent/10 relative">
             <Container>
                 <Reveal>
@@ -222,8 +218,6 @@ export default function Trayectoria() {
                         <div className="flex flex-col w-full gap-2 sm:gap-4">
                             <TituloSeccion>Trayectoria</TituloSeccion>
 
-                            {/* flex-col en mobile (foto arriba, línea de tiempo abajo);
-                                flex-row-reverse recién desde md, como estaba originalmente */}
                             <div className="flex flex-col md:flex-row-reverse gap-8 md:gap-16 items-center w-full">
                                 <div className="w-full md:flex-[1.3] relative h-[28vh] sm:h-[38vh] md:h-[48vh] rounded-lg overflow-hidden">
                                     {fotos.map((src, i) => (
